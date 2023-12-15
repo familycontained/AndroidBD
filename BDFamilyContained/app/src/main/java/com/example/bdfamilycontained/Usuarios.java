@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class Usuarios extends SQLiteOpenHelper {
 
     String sqlCreateUsuarios = "CREATE TABLE IF NOT EXISTS Usuarios (idUsuarios INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, correo_electronico TEXT, edad NUMERIC)";
-    String sqlCreateTareas = "CREATE TABLE IF NOT EXISTS Tareas (idUsuarios INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, correo_electronico TEXT, edad NUMERIC)";
-    String sqlCreateUsTar = "CREATE TABLE IF NOT EXISTS Usuario_Tarea (idUsuarios INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, correo_electronico TEXT, edad NUMERIC)";String sqlCreate = "CREATE TABLE IF NOT EXISTS Usuarios (idUsuarios INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, correo_electronico TEXT, edad NUMERIC)";
-    String sqlCreateGrupos = "CREATE TABLE IF NOT EXISTS Grupos (idUsuarios INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, correo_electronico TEXT, edad NUMERIC)";
+    String sqlCreateTareas = "CREATE TABLE IF NOT EXISTS Tareas ( IDTarea INTEGER PRIMARY KEY AUTOINCREMENT, Descripcion TEXT,FechaCreacion DATE, FechaRealizacion DATE,Estado TEXT,IDUsuario INTEGER)";
+    String sqlCreateUsTar = "CREATE TABLE IF NOT EXISTS Usuario_Tarea (  IDRelacion INTEGER PRIMARY KEY AUTOINCREMENT,IDUsuario INTEGER, IDTarea INTEGER)";
+   String sqlCreateGrupos = "CREATE TABLE IF NOT EXISTS Grupos ( IDGrupo INTEGER PRIMARY KEY AUTOINCREMENT, NombreGrupo TEXT, DescripcionGrupo TEXT,IDCreador INTEGER )";
 
     public Usuarios(Context contexto, String nombre, SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);
@@ -17,7 +17,10 @@ public class Usuarios extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(sqlCreate);
+        db.execSQL(sqlCreateUsuarios);
+        db.execSQL(sqlCreateTareas);
+        db.execSQL(sqlCreateUsTar);
+        db.execSQL(sqlCreateGrupos);
     }
 
     @Override
