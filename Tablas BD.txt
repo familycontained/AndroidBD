@@ -1,0 +1,32 @@
+
+============================================================================================
+1. Tabla de Usuarios:
+   - ID Usuarios (clave primaria)
+   - Nombre
+   - Correo Electrónico
+   - Edad
+   - Contraseña
+============================================================================================
+
+2. Tabla de Tareas:
+   - ID de Tarea (clave primaria)
+   - Descripción de la Tarea
+   - Fecha de Creación
+   - Fecha de Realización
+   - Estado de la Tarea (completada o pendiente)
+   - ID de Usuario Relacionado (clave foránea)
+   - Frecuencia (diaria, semanal, mensual, ocasional)
+   - Categoría de la Tarea (por ejemplo, trabajo, estudio, personal, etc.)
+============================================================================================
+
+3. Tabla de Relación Usuario-Tarea:
+   - ID de Relación (clave primaria)
+   - ID de Usuario (clave foránea hacia Tabla de Usuarios)
+   - ID de Tarea (clave foránea hacia Tabla de Tareas)
+============================================================================================
+
+4. Tabla de Grupos o Familias:
+   - ID de Grupo (clave primaria)
+   - Nombre de Grupo
+   - Descripción del Grupo
+   - ID de Usuario del Creador del Grupo (clave foránea hacia Tabla de Usuarios)
