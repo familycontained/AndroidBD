@@ -1,4 +1,4 @@
-<!--activity_main.xml-->
+<!--tareas.xml-->
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -9,39 +9,46 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Registro"
+        android:text="Agregar Tarea"
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
 
     <EditText
-        android:id="@+id/etNombre"
+        android:id="@+id/etDescripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre"
+        android:hint="Descripción"
         android:layout_marginBottom="8dp" />
 
     <EditText
-        android:id="@+id/etCorreo"
+        android:id="@+id/etFechaCreacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Correo Electrónico"
-        android:inputType="textEmailAddress"
+        android:hint="Fecha de Creación"
+        android:inputType="date"
         android:layout_marginBottom="8dp" />
 
     <EditText
-        android:id="@+id/etEdad"
+        android:id="@+id/etFechaRealizacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Edad"
-        android:inputType="number"
+        android:hint="Fecha de Realización"
+        android:inputType="date"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Spinner para seleccionar el estado -->
+    <Spinner
+        android:id="@+id/spinnerEstado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp" />
 
     <Button
-        android:id="@+id/btnAgregar"
+        android:id="@+id/btnAgregarTarea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar Usuario"
+        android:text="Agregar Tarea"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
