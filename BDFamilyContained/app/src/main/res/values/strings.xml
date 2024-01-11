@@ -5,4 +5,9 @@
     <string name="tareas">Tareas</string>
     <string name="usuarioTareas">Asignación de tareas</string>
     <string name="grupos">Grupos</string>
+    <string name="aniadir_usuarios">Añadir Usuario</string>
+    <string name="modificar_usuario">Modificar Usuario</string>
+    <string name="eliminar_usuario">Eliminar Usuario</string>
+    <string name="enlistar_usuarios">Enlistar Usuarios</string>
+    <string name="listar_usuarios">Listar Usuarios</string>
 </resources>

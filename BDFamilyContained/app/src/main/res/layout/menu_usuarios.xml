@@ -18,24 +18,24 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/usuarios"/>
+        android:text="@string/aniadir_usuarios"/>
 
     <!-- Botón 2 -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tareas"/>
+        android:text="@string/modificar_usuario"/>
 
     <!-- Botón 3 -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/usuarioTareas"/>
+        android:text="@string/eliminar_usuario"/>
 
     <!-- Botón 4 -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/grupos"/>
+        android:text="@string/listar_usuarios"/>
 
 </LinearLayout>
