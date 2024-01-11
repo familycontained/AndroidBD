@@ -4,6 +4,7 @@
     <string name="usuarios">Usuarios</string>
     <string name="tareas">Tareas</string>
     <string name="usuarioTareas">Asignación de tareas</string>
+ -------------------------------------------------------------------
     <string name="grupos">Grupos</string>
     <string name="aniadir_tarea">Añadir tarea</string>
     <string name="modificar_tarea">Modificar tarea</string>
@@ -13,4 +14,18 @@
     <string name="modificar_usuario">Modificar Usuario</string>
     <string name="eliminar_usuario">Eliminar Usuario</string>
     <string name="listar_usuarios">Listar Usuarios</string>
+
+
+    -----------------------------------------
+
+    <string name="aniadir">Añadir </string>
+    <string name="modificar">Modificar </string>
+    <string name="eliminar">Eliminar </string>
+    <string name="listar">Listar </string>
+    <string name="usuario_tarea">Usuario Tarea</string>
+    <string name="modificar_usuario_tarea">Modificar Usuario Tarea</string>
+    <string name="aniadir_usuario_tarea">Añadir Usuario Tarea</string>
+    <string name="eliminar_usuario_tarea">Eliminar Usuario Tarea</string>
+    <string name="listar_usuario_tarea">Listar Usuario Tarea</string>
+
 </resources>
