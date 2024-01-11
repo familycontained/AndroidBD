@@ -1,0 +1,8 @@
+cd Android
+cd Sdk
+cd platform-tools
+./adb shell
+cd data/data
+cd com.example.bdfamilycontained
+cd databases
+sqlite3 DBFamilyContained
