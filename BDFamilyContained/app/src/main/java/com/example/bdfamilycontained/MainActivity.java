@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.registro_usuarios);
 
         Usuarios usdbh = new Usuarios(this, "DBFamilyContained", null, 1);
         final SQLiteDatabase db = usdbh.getWritableDatabase();
