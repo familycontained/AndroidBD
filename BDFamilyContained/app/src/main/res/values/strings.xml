@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">BDFamilyContained</string>
     <string name="Registro">Registro</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="tareas">Tareas</string>
+    <string name="usuarioTareas">Asignación de tareas</string>
+    <string name="grupos">Grupos</string>
 </resources>
