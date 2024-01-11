@@ -16,24 +16,28 @@
 
     <!-- Botón 1 -->
     <Button
+        android:id="@+id/aniadir_grupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/aniadir_grupo" />
 
     <!-- Botón 2 -->
     <Button
+        android:id="@+id/modificar_grupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/modificar_grupo"/>
 
     <!-- Botón 3 -->
     <Button
+        android:id="@+id/eliminar_grupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/eliminar_grupo"/>
 
     <!-- Botón 4 -->
     <Button
+        android:id="@+id/listar_grupos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/listar_grupos"/>

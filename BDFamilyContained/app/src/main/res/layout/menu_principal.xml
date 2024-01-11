@@ -16,24 +16,28 @@
 
     <!-- Botón 1 -->
     <Button
+        android:id="@+id/usuarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/usuarios"/>
 
     <!-- Botón 2 -->
     <Button
+        android:id="@+id/tareas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tareas"/>
 
     <!-- Botón 3 -->
     <Button
+        android:id="@+id/usuarioTareas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/usuarioTareas"/>
 
     <!-- Botón 4 -->
     <Button
+        android:id="@+id/grupos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/grupos"/>

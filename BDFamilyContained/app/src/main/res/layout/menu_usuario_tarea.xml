@@ -16,28 +16,28 @@
 
     <!-- Botón 1 -->
     <Button
-        android:id="@+id/aniadir_usuarios"
+        android:id="@+id/aniadir_usuario_tarea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/aniadir_usuario_tarea"/>
 
     <!-- Botón 2 -->
     <Button
-        android:id="@+id/modificar_usuario"
+        android:id="@+id/modificar_usuario_tarea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/modificar_usuario_tarea"/>
 
     <!-- Botón 3 -->
     <Button
-        android:id="@+id/eliminar_usuario"
+        android:id="@+id/eliminar_usuario_tarea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/eliminar_usuario_tarea"/>
 
     <!-- Botón 4 -->
     <Button
-        android:id="@+id/listar_usuarios"
+        android:id="@+id/listar_usuario_tarea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/listar_usuario_tarea"/>

@@ -27,5 +27,9 @@
     <string name="aniadir_usuario_tarea">Añadir Usuario Tarea</string>
     <string name="eliminar_usuario_tarea">Eliminar Usuario Tarea</string>
     <string name="listar_usuario_tarea">Listar Usuario Tarea</string>
+    <string name="aniadir_grupo">Añiadir Grupo</string>
+    <string name="modificar_grupo">Modificar Grupo</string>
+    <string name="eliminar_grupo">Eliminar Grupo</string>
+    <string name="listar_grupos">Listar Grupo</string>
 
 </resources>
