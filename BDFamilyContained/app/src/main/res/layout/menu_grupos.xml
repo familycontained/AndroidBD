@@ -1,6 +1,48 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
+=======
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+>>>>>>> 65f4b3dc3bd5e48fd3179a3a0fc41e5e79a95f78
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Título del Menú -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/grupos"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:marginBottom="20dp"/>
+
+    <!-- Botón 1 -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/aniadir_grupo" />
+
+    <!-- Botón 2 -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/modificar_grupo"/>
+
+    <!-- Botón 3 -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/eliminar_grupo"/>
+
+    <!-- Botón 4 -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/listar_grupos"/>
+
+</LinearLayout>
