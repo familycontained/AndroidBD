@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
-=======
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
->>>>>>> 65f4b3dc3bd5e48fd3179a3a0fc41e5e79a95f78
 
     <!-- Título del Menú -->
     <TextView
