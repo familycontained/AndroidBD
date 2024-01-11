@@ -12,7 +12,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
-        android:marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"/>
 
     <!-- Botón 1 -->
     <Button
