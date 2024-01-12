@@ -89,6 +89,9 @@ public class Usuarios extends Activity {
                     Toast.makeText(Usuarios.this, "Usuario ya existe", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Usuarios.this, "Usuario creado", Toast.LENGTH_SHORT).show();
+                    nombreEditText.setText("");
+                    correoEditText.setText("");
+                    edadEditText.setText("");
                 }
             }
         });
