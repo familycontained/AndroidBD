@@ -17,14 +17,14 @@
         android:id="@+id/idTarea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ID Tarea"
+        android:hint="@string/id_tarea"
         android:layout_marginBottom="8dp" />
 
     <EditText
         android:id="@+id/descripcionTarea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Modificar Descripción"
+        android:hint="@string/modificar_descripci_n"
         android:layout_marginBottom="8dp" />
 
     <Spinner
@@ -38,7 +38,7 @@
         android:id="@+id/btnModificar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modificar"
+        android:text="@string/modificar"
         android:layout_gravity="center_horizontal" />
 
     <TextView

@@ -40,6 +40,8 @@
    <string name="descripcion">Descripción</string>
    <string name="fecha_creaci_n">Fecha Creación</string>
    <string name="estado_de_tarea">Estado de tarea</string>
+   <string name="modificar_descripci_n">Modificar Descripción</string>
+   <string name="id_tarea">ID Tarea</string>
 
    -------------------------------------------------------
    <string-array name="estado_tarea_opciones">

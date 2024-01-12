@@ -11,10 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Tareas extends Activity {
 
@@ -61,113 +65,106 @@ public class Tareas extends Activity {
 
         EditText descEditText = findViewById(R.id.descripcionTarea);
         EditText fechaRealizacionEditText = findViewById(R.id.fechaRealizacion);
-        EditText edadEditText = findViewById(R.id.edad);
+        Spinner estadoSpinner = findViewById(R.id.estado_tarea_opciones);
+        TextView tvFechaCreacion = findViewById(R.id.tvFechaCreacion);
         Button submitButton = findViewById(R.id.Agregar);
+
+        // Establecer la fecha de creación
+        String fechaCreacion = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        tvFechaCreacion.setText(fechaCreacion);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String descripcion = descEditText.getText().toString();
                 String fechaRealizacion = fechaRealizacionEditText.getText().toString();
-                String edadStr = edadEditText.getText().toString();
+                String estado = estadoSpinner.getSelectedItem().toString();
 
-                if (descripcion.isEmpty() || fechaRealizacion.isEmpty() || edadStr.isEmpty()) {
+                if (descripcion.isEmpty() || fechaRealizacion.isEmpty()) {
                     Toast.makeText(Tareas.this, "Falta completar campos", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                int edad = Integer.parseInt(edadStr);
                 DatabaseHelper dbHelper = new DatabaseHelper(Tareas.this);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-                // Verificar si el Tarea ya existe (opcional, depende de tu lógica de negocio)
-                // ...
-
                 ContentValues values = new ContentValues();
                 values.put("Descripcion", descripcion);
+                values.put("FechaCreacion", fechaCreacion);
                 values.put("FechaRealizacion", fechaRealizacion);
-                values.put("edad", edad);
+                values.put("Estado", estado);
 
                 long result = db.insert("Tareas", null, values);
                 db.close();
 
                 if (result == -1) {
-                    Toast.makeText(Tareas.this, "Tarea ya existe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Tareas.this, "Error al crear la tarea", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Tareas.this, "Tarea creado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Tareas.this, "Tarea creada", Toast.LENGTH_SHORT).show();
                     descEditText.setText("");
                     fechaRealizacionEditText.setText("");
-                    edadEditText.setText("");
+                    // Restablecer el estado del Spinner si es necesario
                 }
             }
         });
     }
+
 
     private void modificarTareas() {
         setContentView(R.layout.modificar_tarea);
 
         EditText etIdTarea = findViewById(R.id.idTarea);
         EditText etDescripcion = findViewById(R.id.descripcionTarea);
-        Spinner estado = findViewById(R.id.estado_tarea_opciones);
+        Spinner estadoSpinner = findViewById(R.id.estado_tarea_opciones);
         Button btnModificar = findViewById(R.id.btnModificar);
+
+        // Configurar el spinner de estado
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.estado_tarea_opciones, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        estadoSpinner.setAdapter(adapter);
 
         btnModificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String idTarea = etIdTarea.getText().toString();
-                String nuevoDesc = etDescripcion.getText().toString();
-                String estado = estado.getText().toString();
+                String nuevaDescripcion = etDescripcion.getText().toString();
+                String nuevoEstado = estadoSpinner.getSelectedItem().toString();
 
-                // Verificar solo el ID del Tarea
                 if (idTarea.isEmpty()) {
-                    Toast.makeText(Tareas.this, "Por favor, ingrese el ID del Tarea.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Tareas.this, "Por favor, ingrese el ID de la tarea.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Verificar si al menos uno de los campos está lleno
-                if (nuevoDesc.isEmpty() && nuevoCorreo.isEmpty()) {
-                    Toast.makeText(Tareas.this, "Ingrese al menos un campo para actualizar.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                actualizarTareaEnLaBaseDeDatos(idTarea, nuevoNombre, nuevoCorreo);
+                actualizarTareaEnLaBaseDeDatos(idTarea, nuevaDescripcion, nuevoEstado);
             }
         });
     }
 
-    private void actualizarTareaEnLaBaseDeDatos(String idTarea, String nombre, String correo) {
+    private void actualizarTareaEnLaBaseDeDatos(String idTarea, String descripcion, String estado) {
         DatabaseHelper dbHelper = new DatabaseHelper(Tareas.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        if (!nombre.isEmpty()) {
-            values.put("nombre", nombre);
+        if (!descripcion.isEmpty()) {
+            values.put("Descripcion", descripcion);
         }
-        if (!correo.isEmpty()) {
-            values.put("correo_electronico", correo);
-        }
+        values.put("Estado", estado);
 
-        int affectedRows = db.update("Tareas", values, "idTareas = ?", new String[]{idTarea});
+        int affectedRows = db.update("Tareas", values, "IDTarea = ?", new String[]{idTarea});
         db.close();
 
         if (affectedRows > 0) {
-            Toast.makeText(Tareas.this, "Tarea actualizado.", Toast.LENGTH_SHORT).show();
-            EditText idTareaEditText = findViewById(R.id.idTarea);
-            EditText nombreEditText = findViewById(R.id.etNombre);
-            EditText correoEditText = findViewById(R.id.etCorreo);
-            idTareaEditText.setText("");
-            nombreEditText.setText("");
-            correoEditText.setText("");
-
+            Toast.makeText(Tareas.this, "Tarea actualizada.", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(Tareas.this, "Error al actualizar el Tarea o el Tarea no existe.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Tareas.this, "Error al actualizar la tarea.", Toast.LENGTH_SHORT).show();
         }
-
     }
 
 
+
     private void eliminarTarea() {
-        setContentView(R.layout.eliminar_Tarea);
+        setContentView(R.layout.eliminar_tarea);
 
         final EditText etIdTarea = findViewById(R.id.idTarea);
         Button btnEliminar =findViewById(R.id.btnEliminar);
@@ -204,9 +201,9 @@ public class Tareas extends Activity {
 
 
     private void listarTareas() {
-        setContentView(R.layout.listar_Tarea);
+        setContentView(R.layout.listar_tarea);
 
-        ListView listView = findViewById(R.id.listaTareas);
+        ListView listView = findViewById(R.id.listar_tareas);
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
