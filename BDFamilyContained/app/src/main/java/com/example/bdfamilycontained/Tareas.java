@@ -56,7 +56,7 @@ public class Tareas extends Activity {
     }
 
     private void crearTarea() {
-        setContentView(R.layout.registro_Tareas);
+        setContentView(R.layout.crear_tarea);
 
         EditText nombreEditText = findViewById(R.id.nombre);
         EditText correoEditText = findViewById(R.id.correo);

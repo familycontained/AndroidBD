@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/crear_tarea"
+        android:textSize="24sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/descripcionTarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/descripcion"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/fechaRealizacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/fecha_realizacion_de_tarea"
+        android:inputType="date" />
+
+        <Spinner
+            android:id="@+id/estado_tarea_opciones"
+            android:layout_width="match_parent"
+            android:text="@string/estado_de_tarea"
+            android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/Agregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/crear_tarea"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tvFechaCreacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/fecha_creaci_n"
+        android:textSize="16sp"
+
+        android:layout_marginBottom="8dp" />
+
+</LinearLayout>

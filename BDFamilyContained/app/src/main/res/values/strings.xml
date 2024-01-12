@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">BDFamilyContained</string>
     <string name="RegistroUsuario">Registro Usuario</string>
     <string name="usuarios">Usuarios</string>
@@ -35,5 +35,18 @@
     <string name="ModificarUsuario">Modificar Usuario</string>
     <string name="ID_no_existe">ID No Existe !!!</string>
     <string name="lista_de_usuarios">Lista de Usuarios</string>
+    <string name="crear_tarea">Crear Tarea</string>
+   <string name="fecha_realizacion_de_tarea">Fecha Realización de Tarea</string>
+   <string name="descripcion">Descripción</string>
+   <string name="fecha_creaci_n">Fecha Creación</string>
+   <string name="estado_de_tarea">Estado de tarea</string>
+
+   -------------------------------------------------------
+   <string-array name="estado_tarea_opciones">
+      <item>Pendiente</item>
+      <item>En Progreso</item>
+      <item>Completada</item>
+   </string-array>
+
 
 </resources>
