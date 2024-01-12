@@ -186,13 +186,14 @@ public class Tareas extends Activity {
         DatabaseHelper dbHelper = new DatabaseHelper(Tareas.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        int deletedRows = db.delete("Tareas", "idTareas = ?", new String[]{idTarea});
+        // Asegúrate de que el nombre de la columna aquí coincide con el nombre en tu base de datos
+        int deletedRows = db.delete("Tareas", "IDTarea = ?", new String[]{idTarea});
         db.close();
 
         if (deletedRows > 0) {
-            Toast.makeText(Tareas.this, "Tarea eliminado.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Tareas.this, "Tarea eliminada.", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(Tareas.this, "No se pudo eliminar el Tarea.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Tareas.this, "No se pudo eliminar la tarea.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -207,33 +208,34 @@ public class Tareas extends Activity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Consulta para obtener los datos de los Tareas
+        // Consulta para obtener los datos de las tareas
         Cursor cursor = db.rawQuery("SELECT * FROM Tareas", null);
 
         // Obtiene los índices de las columnas
-        int idTareasIndex = cursor.getColumnIndex("idTareas");
-        int nombreIndex = cursor.getColumnIndex("nombre");
-        int correoIndex = cursor.getColumnIndex("correo_electronico");
-        int edadIndex = cursor.getColumnIndex("edad");
+        int idTareaIndex = cursor.getColumnIndex("IDTarea");
+        int descripcionIndex = cursor.getColumnIndex("Descripcion");
+        int fechaCreacionIndex = cursor.getColumnIndex("FechaCreacion");
+        int fechaRealizacionIndex = cursor.getColumnIndex("FechaRealizacion");
+        int estadoIndex = cursor.getColumnIndex("Estado");
 
-        List<String> Tareas = new ArrayList<>();
+        List<String> tareas = new ArrayList<>();
         while(cursor.moveToNext()) {
-            // Verifica que los índices de las columnas sean válidos
-            String idTarea = nombreIndex != -1 ? cursor.getString(idTareasIndex) : "ID no disponible";
-            String nombre = nombreIndex != -1 ? cursor.getString(nombreIndex) : "Nombre no disponible";
-            String correo = correoIndex != -1 ? cursor.getString(correoIndex) : "Correo no disponible";
-            String edad = edadIndex != -1 ? Integer.toString(cursor.getInt(edadIndex)) : "Edad no disponible";
+            String idTarea = idTareaIndex != -1 ? cursor.getString(idTareaIndex) : "ID no disponible";
+            String descripcion = descripcionIndex != -1 ? cursor.getString(descripcionIndex) : "Descripción no disponible";
+            String fechaCreacion = fechaCreacionIndex != -1 ? cursor.getString(fechaCreacionIndex) : "Fecha Creación no disponible";
+            String fechaRealizacion = fechaRealizacionIndex != -1 ? cursor.getString(fechaRealizacionIndex) : "Fecha Realización no disponible";
+            String estado = estadoIndex != -1 ? cursor.getString(estadoIndex) : "Estado no disponible";
 
-            // Formatear la información del Tarea
-            Tareas.add(idTarea + " - " + nombre + " - " + correo + " - " + edad);
+            // Formatear la información de la tarea
+            tareas.add("ID: " + idTarea + ", Descripción: " + descripcion + ", Fecha Creación: " + fechaCreacion + ", Fecha Realización: " + fechaRealizacion + ", Estado: " + estado);
         }
         cursor.close();
 
-
-        // Usar un ArrayAdapter para mostrar la lista de Tareas
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Tareas);
+        // Usar un ArrayAdapter para mostrar la lista de tareas
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tareas);
         listView.setAdapter(adapter);
     }
+
 
 
 }
