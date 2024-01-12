@@ -3,12 +3,18 @@ package com.example.bdfamilycontained;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Usuarios extends Activity {
 
@@ -97,8 +103,6 @@ public class Usuarios extends Activity {
         });
     }
 
-
-
     private void modificarUsuarios() {
         setContentView(R.layout.modificar_usuario);
     }
@@ -109,6 +113,37 @@ public class Usuarios extends Activity {
 
     private void listarUsuarios() {
         setContentView(R.layout.listar_usuario);
+
+        ListView listView = findViewById(R.id.listaUsuarios);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Consulta para obtener los datos de los usuarios
+        Cursor cursor = db.rawQuery("SELECT * FROM Usuarios", null);
+
+        // Obtiene los índices de las columnas
+        int idUsuariosIndex = cursor.getColumnIndex("idUsuarios");
+        int nombreIndex = cursor.getColumnIndex("nombre");
+        int correoIndex = cursor.getColumnIndex("correo_electronico");
+        int edadIndex = cursor.getColumnIndex("edad");
+
+        List<String> usuarios = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            // Verifica que los índices de las columnas sean válidos
+            String idUsuario = nombreIndex != -1 ? cursor.getString(idUsuariosIndex) : "ID no disponible";
+            String nombre = nombreIndex != -1 ? cursor.getString(nombreIndex) : "Nombre no disponible";
+            String correo = correoIndex != -1 ? cursor.getString(correoIndex) : "Correo no disponible";
+            String edad = edadIndex != -1 ? Integer.toString(cursor.getInt(edadIndex)) : "Edad no disponible";
+
+            // Formatear la información del usuario
+            usuarios.add(idUsuario + " - " + nombre + " - " + correo + " - " + edad);
+        }
+        cursor.close();
+
+
+        // Usar un ArrayAdapter para mostrar la lista de usuarios
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, usuarios);
+        listView.setAdapter(adapter);
     }
 
 }
