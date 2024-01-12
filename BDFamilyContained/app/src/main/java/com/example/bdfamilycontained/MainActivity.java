@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         botonUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Usuarios.class);
+                Intent intent = new Intent(MainActivity.this, Tareas.class);
                 startActivity(intent);
             }
         });
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         botonUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Usuarios.class);
+                Intent intent = new Intent(MainActivity.this, Usuario_Tareas.class);
                 startActivity(intent);
             }
         });
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         botonUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Usuarios.class);
+                Intent intent = new Intent(MainActivity.this, Grupos.class);
                 startActivity(intent);
             }
         });
