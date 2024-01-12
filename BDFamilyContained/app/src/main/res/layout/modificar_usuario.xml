@@ -8,30 +8,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ModificarUsuario"
+        android:text="@string/RegistroUsuario"
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
 
     <EditText
-        android:id="@+id/idUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ID Usuario"
-        android:layout_marginBottom="8dp" />
-
-    <EditText
         android:id="@+id/etNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Modificar Nombre"
+        android:hint="Nombre"
         android:layout_marginBottom="8dp" />
 
     <EditText
         android:id="@+id/etCorreo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Modificar Correo Electrónico"
+        android:hint="Correo Electrónico"
         android:inputType="textEmailAddress"
         android:layout_marginBottom="8dp" />
 
@@ -39,7 +32,7 @@
         android:id="@+id/etEdad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Modificar Edad"
+        android:hint="Edad"
         android:inputType="number"
         android:layout_marginBottom="16dp" />
 
@@ -47,16 +40,7 @@
         android:id="@+id/btnAgregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modificar"
+        android:text="Agregar Usuario"
         android:layout_gravity="center_horizontal" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ID_no_existe"
-        android:textSize="24sp"
-        android:visibility="invisible"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
-
 
 </LinearLayout>

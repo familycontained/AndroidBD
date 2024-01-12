@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BDFamilyContained</string>
-    <string name="Registro">Registro</string>
+    <string name="RegistroUsuario">Registro Usuario</string>
     <string name="usuarios">Usuarios</string>
     <string name="tareas">Tareas</string>
     <string name="usuarioTareas">Asignación de tareas</string>
@@ -32,5 +32,8 @@
     <string name="modificar_grupo">Modificar Grupo</string>
     <string name="eliminar_grupo">Eliminar Grupo</string>
     <string name="listar_grupos">Listar Grupo</string>
+    <string name="ModificarUsuario">Modificar Usuario</string>
+    <string name="ID_no_existe">ID No Existe !!!</string>
+    <string name="lista_de_usuarios">Lista de Usuarios</string>
 
 </resources>
