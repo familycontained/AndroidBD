@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //---------------------------------------------------------------
-        Button botonTareas = findViewById(R.id.tareas);
+        Button botonUsuarioTareas = findViewById(R.id.usuarioTareas);
         botonUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //---------------------------------------------------------------
-        Button botonUsuarios = findViewById(R.id.usuarios);
+        Button botonGrupos = findViewById(R.id.grupos);
         botonUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

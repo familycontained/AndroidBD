@@ -29,6 +29,21 @@
             android:exported="false">
             <!-- Intent filters si son necesarios -->
         </activity>
+        <activity
+            android:name=".Tareas"
+            android:exported="false">
+            <!-- Intent filters si son necesarios -->
+        </activity>
+        <activity
+            android:name=".Usuario_Tareas"
+            android:exported="false">
+            <!-- Intent filters si son necesarios -->
+        </activity>
+        <activity
+            android:name=".Grupos"
+            android:exported="false">
+            <!-- Intent filters si son necesarios -->
+        </activity>
 
     </application>
 
