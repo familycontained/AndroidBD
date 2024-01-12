@@ -58,19 +58,19 @@ public class Tareas extends Activity {
     private void crearTarea() {
         setContentView(R.layout.crear_tarea);
 
-        EditText nombreEditText = findViewById(R.id.nombre);
-        EditText correoEditText = findViewById(R.id.correo);
+        EditText descEditText = findViewById(R.id.descripcionTarea);
+        EditText fechaRealizacionEditText = findViewById(R.id.fechaRealizacion);
         EditText edadEditText = findViewById(R.id.edad);
         Button submitButton = findViewById(R.id.Agregar);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nombre = nombreEditText.getText().toString();
-                String correo = correoEditText.getText().toString();
+                String descripcion = descEditText.getText().toString();
+                String fechaRealizacion = fechaRealizacionEditText.getText().toString();
                 String edadStr = edadEditText.getText().toString();
 
-                if (nombre.isEmpty() || correo.isEmpty() || edadStr.isEmpty()) {
+                if (descripcion.isEmpty() || fechaRealizacion.isEmpty() || edadStr.isEmpty()) {
                     Toast.makeText(Tareas.this, "Falta completar campos", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -83,8 +83,8 @@ public class Tareas extends Activity {
                 // ...
 
                 ContentValues values = new ContentValues();
-                values.put("nombre", nombre);
-                values.put("correo_electronico", correo);
+                values.put("Descripcion", descripcion);
+                values.put("FechaRealizacion", fechaRealizacion);
                 values.put("edad", edad);
 
                 long result = db.insert("Tareas", null, values);
@@ -94,8 +94,8 @@ public class Tareas extends Activity {
                     Toast.makeText(Tareas.this, "Tarea ya existe", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Tareas.this, "Tarea creado", Toast.LENGTH_SHORT).show();
-                    nombreEditText.setText("");
-                    correoEditText.setText("");
+                    descEditText.setText("");
+                    fechaRealizacionEditText.setText("");
                     edadEditText.setText("");
                 }
             }
@@ -106,7 +106,7 @@ public class Tareas extends Activity {
         setContentView(R.layout.modificar_Tarea);
 
         EditText etIdTarea = findViewById(R.id.idTarea);
-        EditText etNombre = findViewById(R.id.etNombre);
+        EditText etDescripcion = findViewById(R.id.etNombre);
         EditText etCorreo = findViewById(R.id.etCorreo);
         Button btnModificar = findViewById(R.id.btnModificar);
 
@@ -114,7 +114,7 @@ public class Tareas extends Activity {
             @Override
             public void onClick(View view) {
                 String idTarea = etIdTarea.getText().toString();
-                String nuevoNombre = etNombre.getText().toString();
+                String nuevoNombre = etDescripcion.getText().toString();
                 String nuevoCorreo = etCorreo.getText().toString();
 
                 // Verificar solo el ID del Tarea
