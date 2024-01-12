@@ -15,6 +15,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "correo_electronico TEXT, " +
                     "edad NUMERIC);";
 
+    private static final String DATABASE_NAME2 = "TareasDB";
+    private static final String TABLE_CREATE2 =
+            "CREATE TABLE Tareas (" +
+                    "idTarea INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "Descripcion TEXT, " +
+                    "Estado TEXT, " +
+                    "FechaCrecion TEXT, " +
+                    "FechaRealizacion TEXT);";
+
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -22,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
+        db.execSQL(TABLE_CREATE2);
     }
 
     @Override
