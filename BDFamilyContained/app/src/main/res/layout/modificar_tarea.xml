@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ModificarUsuario"
+        android:text="@string/modificar_tarea"
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
@@ -27,13 +27,11 @@
         android:hint="Modificar Descripción"
         android:layout_marginBottom="8dp" />
 
-    <EditText
-        android:id="@+id/etCorreo"
+    <Spinner
+        android:id="@+id/estado_tarea_opciones"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Modificar Correo Electrónico"
-        android:inputType="textEmailAddress"
-        android:layout_marginBottom="8dp" />
+        android:text="@string/estado_de_tarea"
+        android:layout_height="wrap_content" />
 
 
     <Button
