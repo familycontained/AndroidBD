@@ -2,7 +2,6 @@ package com.example.bdfamilycontained;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -105,7 +104,47 @@ public class Usuarios extends Activity {
 
     private void modificarUsuarios() {
         setContentView(R.layout.modificar_usuario);
+
+        EditText etIdUsuario = findViewById(R.id.idUsuario);
+        EditText etNombre = findViewById(R.id.etNombre);
+        EditText etCorreo = findViewById(R.id.etCorreo);
+        Button btnModificar = findViewById(R.id.btnModificar);
+
+        btnModificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String idUsuario = etIdUsuario.getText().toString();
+                String nuevoNombre = etNombre.getText().toString();
+                String nuevoCorreo = etCorreo.getText().toString();
+
+                if (idUsuario.isEmpty() || nuevoNombre.isEmpty() || nuevoCorreo.isEmpty()) {
+                    Toast.makeText(Usuarios.this, "Falta completar campos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                actualizarUsuarioEnLaBaseDeDatos(idUsuario, nuevoNombre, nuevoCorreo);
+            }
+        });
     }
+
+    private void actualizarUsuarioEnLaBaseDeDatos(String idUsuario, String nombre, String correo) {
+        DatabaseHelper dbHelper = new DatabaseHelper(Usuarios.this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("nombre", nombre);
+        values.put("correo_electronico", correo);
+
+        int affectedRows = db.update("Usuarios", values, "idUsuarios = ?", new String[]{idUsuario});
+        db.close();
+
+        if (affectedRows > 0) {
+            Toast.makeText(Usuarios.this, "Usuario actualizado.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(Usuarios.this, "Error al actualizar el usuario.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void eliminarUsuario() {
         setContentView(R.layout.eliminar_usuario);

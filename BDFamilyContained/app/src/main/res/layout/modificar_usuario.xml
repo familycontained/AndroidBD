@@ -35,20 +35,14 @@
         android:inputType="textEmailAddress"
         android:layout_marginBottom="8dp" />
 
-    <EditText
-        android:id="@+id/etEdad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Modificar Edad"
-        android:inputType="number"
-        android:layout_marginBottom="16dp" />
 
     <Button
-        android:id="@+id/btnAgregar"
+        android:id="@+id/btnModificar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Modificar"
         android:layout_gravity="center_horizontal" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
