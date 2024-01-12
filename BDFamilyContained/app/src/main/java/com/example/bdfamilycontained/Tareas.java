@@ -1,2 +1,4 @@
-package com.example.bdfamilycontained;public class Tareas {
+package com.example.bdfamilycontained;
+
+public class Tareas {
 }

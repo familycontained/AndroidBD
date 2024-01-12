@@ -1,2 +1,4 @@
-package com.example.bdfamilycontained;public class Grupos {
+package com.example.bdfamilycontained;
+
+public class Grupos {
 }

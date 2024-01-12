@@ -1,2 +1,4 @@
-package com.example.bdfamilycontained;public class Usuario_Tareas {
+package com.example.bdfamilycontained;
+
+public class Usuario_Tareas {
 }
