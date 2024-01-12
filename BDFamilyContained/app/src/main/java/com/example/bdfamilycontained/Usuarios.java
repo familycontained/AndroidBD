@@ -117,8 +117,15 @@ public class Usuarios extends Activity {
                 String nuevoNombre = etNombre.getText().toString();
                 String nuevoCorreo = etCorreo.getText().toString();
 
-                if (idUsuario.isEmpty() || nuevoNombre.isEmpty() || nuevoCorreo.isEmpty()) {
-                    Toast.makeText(Usuarios.this, "Falta completar campos", Toast.LENGTH_SHORT).show();
+                // Verificar solo el ID del usuario
+                if (idUsuario.isEmpty()) {
+                    Toast.makeText(Usuarios.this, "Por favor, ingrese el ID del usuario.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Verificar si al menos uno de los campos está lleno
+                if (nuevoNombre.isEmpty() && nuevoCorreo.isEmpty()) {
+                    Toast.makeText(Usuarios.this, "Ingrese al menos un campo para actualizar.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -132,17 +139,29 @@ public class Usuarios extends Activity {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("nombre", nombre);
-        values.put("correo_electronico", correo);
+        if (!nombre.isEmpty()) {
+            values.put("nombre", nombre);
+        }
+        if (!correo.isEmpty()) {
+            values.put("correo_electronico", correo);
+        }
 
         int affectedRows = db.update("Usuarios", values, "idUsuarios = ?", new String[]{idUsuario});
         db.close();
 
         if (affectedRows > 0) {
             Toast.makeText(Usuarios.this, "Usuario actualizado.", Toast.LENGTH_SHORT).show();
+            EditText idUsuarioEditText = findViewById(R.id.idUsuario);
+            EditText nombreEditText = findViewById(R.id.etNombre);
+            EditText correoEditText = findViewById(R.id.etCorreo);
+            idUsuarioEditText.setText("");
+            nombreEditText.setText("");
+            correoEditText.setText("");
+
         } else {
-            Toast.makeText(Usuarios.this, "Error al actualizar el usuario.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Usuarios.this, "Error al actualizar el usuario o el usuario no existe.", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 
