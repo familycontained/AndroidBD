@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -103,19 +104,19 @@ public class Tareas extends Activity {
     }
 
     private void modificarTareas() {
-        setContentView(R.layout.modificar_Tarea);
+        setContentView(R.layout.modificar_tarea);
 
         EditText etIdTarea = findViewById(R.id.idTarea);
-        EditText etDescripcion = findViewById(R.id.etNombre);
-        EditText etCorreo = findViewById(R.id.etCorreo);
+        EditText etDescripcion = findViewById(R.id.descripcionTarea);
+        Spinner estado = findViewById(R.id.estado_tarea_opciones);
         Button btnModificar = findViewById(R.id.btnModificar);
 
         btnModificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String idTarea = etIdTarea.getText().toString();
-                String nuevoNombre = etDescripcion.getText().toString();
-                String nuevoCorreo = etCorreo.getText().toString();
+                String nuevoDesc = etDescripcion.getText().toString();
+                String estado = estado.getText().toString();
 
                 // Verificar solo el ID del Tarea
                 if (idTarea.isEmpty()) {
@@ -124,7 +125,7 @@ public class Tareas extends Activity {
                 }
 
                 // Verificar si al menos uno de los campos está lleno
-                if (nuevoNombre.isEmpty() && nuevoCorreo.isEmpty()) {
+                if (nuevoDesc.isEmpty() && nuevoCorreo.isEmpty()) {
                     Toast.makeText(Tareas.this, "Ingrese al menos un campo para actualizar.", Toast.LENGTH_SHORT).show();
                     return;
                 }
