@@ -27,11 +27,11 @@
         android:hint="@string/fecha_realizacion_de_tarea"
         android:inputType="date" />
 
-        <Spinner
-            android:id="@+id/estado_tarea_opciones"
-            android:layout_width="match_parent"
-            android:text="@string/estado_de_tarea"
-            android:layout_height="wrap_content" />
+    <Spinner
+        android:id="@+id/estado_tarea_opciones"
+        android:layout_width="match_parent"
+        android:text="@string/estado_de_tarea"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/Agregar"
