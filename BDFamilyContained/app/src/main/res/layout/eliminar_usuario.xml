@@ -22,18 +22,13 @@
 
 
     <Button
-        android:id="@+id/btnAgregar"
+        android:id="@+id/btnEliminar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/eliminar"
-        android:layout_gravity="center_horizontal" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:visibility="invisible"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
+        android:layout_gravity="center_horizontal"/>
+
+
 
 
 </LinearLayout>

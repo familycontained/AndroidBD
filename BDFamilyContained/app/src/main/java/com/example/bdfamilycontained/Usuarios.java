@@ -109,7 +109,40 @@ public class Usuarios extends Activity {
 
     private void eliminarUsuario() {
         setContentView(R.layout.eliminar_usuario);
+
+        final EditText etIdUsuario = findViewById(R.id.idUsuario);
+        Button btnEliminar =findViewById(R.id.btnEliminar);
+
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String idUsuario = etIdUsuario.getText().toString();
+                if (!idUsuario.isEmpty()) {
+                    eliminarUsuarioDeLaBaseDeDatos(idUsuario);
+                } else {
+                    Toast.makeText(Usuarios.this, "Por favor, ingrese un ID de usuario.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
+    private void eliminarUsuarioDeLaBaseDeDatos(String idUsuario) {
+        DatabaseHelper dbHelper = new DatabaseHelper(Usuarios.this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        int deletedRows = db.delete("Usuarios", "idUsuarios = ?", new String[]{idUsuario});
+        db.close();
+
+        if (deletedRows > 0) {
+            Toast.makeText(Usuarios.this, "Usuario eliminado.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(Usuarios.this, "No se pudo eliminar el usuario.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
 
     private void listarUsuarios() {
         setContentView(R.layout.listar_usuario);
