@@ -1,10 +1,7 @@
 package com.example.bdfamilycontained;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,62 +11,55 @@ public class Usuarios extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_usuarios); // Usa el layout correspondiente
-    }
+        setContentView(R.layout.menu_usuarios);
 
-    //---------------------------------------------------------------
-    Button botonRegistroUsuarios = findViewById(R.id.usuarios);
+        Button botonRegistroUsuarios = findViewById(R.id.aniadir_usuarios);
         botonRegistroUsuarios.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-           // ejecutar el metodo crearUsuario
-        }
-    });
-    //---------------------------------------------------------------
-    Button botonModificarUsuarios = findViewById(R.id.tareas);
+            @Override
+            public void onClick(View view) {
+                crearUsuario();
+            }
+        });
+
+        Button botonModificarUsuarios = findViewById(R.id.modificar_usuario);
         botonModificarUsuarios.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            // ejecutar el metodo modificarUsuario
-        }
-    });
-    //---------------------------------------------------------------
-    Button botonEliminarUsuario = findViewById(R.id.usuarioTareas);
+            @Override
+            public void onClick(View view) {
+                modificarUsuarios();
+            }
+        });
+
+        Button botonEliminarUsuario = findViewById(R.id.eliminar_usuario);
         botonEliminarUsuario.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            // ejecutar el metodo eliminarUsuario
-        }
-    });
-    //---------------------------------------------------------------
-    Button botonListarUsuarios = findViewById(R.id.grupos);
-        botonGrupos.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            // ejecutar el metodo listarUsuarios
-        }
-    });
+            @Override
+            public void onClick(View view) {
+                eliminarUsuario();
+            }
+        });
 
-    public crearUsuario() {
-        String sqlCreateUsuarios = "CREATE TABLE IF NOT EXISTS Usuarios (idUsuarios INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, correo_electronico TEXT, edad NUMERIC)";
-        Context contexto, String nombre, SQLiteDatabase.CursorFactory factory, int version) {
-            super(contexto, nombre, factory, version);
-        }
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(sqlCreateUsuarios);}
-
-
+        Button botonListarUsuarios = findViewById(R.id.listar_usuarios); // Asegúrate de que el ID es correcto
+        botonListarUsuarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listarUsuarios();
+            }
+        });
     }
-    public modificarUsuarios() {
 
+    private void crearUsuario() {
+        
     }
-    public eliminarUsuario() {
 
-    }
-    public listarUsuarios() {
+    private void modificarUsuarios() {
 
     }
 
+    private void eliminarUsuario() {
+
+    }
+
+    private void listarUsuarios() {
+
+    }
 
 }
