@@ -90,9 +90,10 @@ public class Tareas extends Activity {
 
                 ContentValues values = new ContentValues();
                 values.put("Descripcion", descripcion);
+                values.put("Estado", estado);
                 values.put("FechaCreacion", fechaCreacion);
                 values.put("FechaRealizacion", fechaRealizacion);
-                values.put("Estado", estado);
+
 
                 long result = db.insert("Tareas", null, values);
                 db.close();

@@ -6,22 +6,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "UsuariosDB";
-    private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_CREATE =
+    private static final String DATABASE_NAME = "FamilyContainedDB";
+    private static final int DATABASE_VERSION = 3;
+    private static final String TABLE_USUARIOS_CREATE =
             "CREATE TABLE Usuarios (" +
                     "idUsuarios INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "nombre TEXT, " +
                     "correo_electronico TEXT, " +
                     "edad NUMERIC);";
 
-    private static final String DATABASE_NAME2 = "TareasDB";
-    private static final String TABLE_CREATE2 =
+    private static final String TABLE_TAREAS_CREATE =
             "CREATE TABLE Tareas (" +
                     "idTarea INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "Descripcion TEXT, " +
                     "Estado TEXT, " +
-                    "FechaCrecion TEXT, " +
+                    "FechaCreacion TEXT, " +
                     "FechaRealizacion TEXT);";
 
 
@@ -31,13 +30,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
-        db.execSQL(TABLE_CREATE2);
+        db.execSQL(TABLE_USUARIOS_CREATE);
+        db.execSQL(TABLE_TAREAS_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Aquí puedes manejar las actualizaciones de la base de datos
+        if (oldVersion < 4) {
+            // Elimina la tabla existente si existe
+            db.execSQL("DROP TABLE IF EXISTS Tareas");
+
+            // Crea la nueva tabla "Tareas"
+            db.execSQL(TABLE_TAREAS_CREATE);
+        }
     }
 }
 
