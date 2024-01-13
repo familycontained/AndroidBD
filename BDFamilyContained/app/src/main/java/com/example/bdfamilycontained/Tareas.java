@@ -213,7 +213,7 @@ public class Tareas extends Activity {
         Cursor cursor = db.rawQuery("SELECT * FROM Tareas", null);
 
         // Obtiene los índices de las columnas
-        int idTareaIndex = cursor.getColumnIndex("IDTarea");
+        int idTareaIndex = cursor.getColumnIndex("idTarea");
         int descripcionIndex = cursor.getColumnIndex("Descripcion");
         int fechaCreacionIndex = cursor.getColumnIndex("FechaCreacion");
         int fechaRealizacionIndex = cursor.getColumnIndex("FechaRealizacion");
