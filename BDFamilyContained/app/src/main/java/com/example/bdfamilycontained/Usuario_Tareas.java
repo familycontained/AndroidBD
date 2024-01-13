@@ -195,9 +195,83 @@ public class Usuario_Tareas extends Activity {
 
 
 
-    private void modificarUsuario_Tareas() {
+    private ArrayList<Integer> relacionesIds;
 
+    private void modificarUsuario_Tareas() {
+        setContentView(R.layout.modificar_usuario_tarea);
+
+        Spinner spinnerRelaciones = findViewById(R.id.spinnerRelaciones);
+        EditText etNuevoIdUsuario = findViewById(R.id.etNuevoIdUsuario);
+        Button btnModificarRelacion = findViewById(R.id.btnModificarRelacion);
+
+        cargarRelacionesEnSpinner(spinnerRelaciones);
+
+        btnModificarRelacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int idRelacion = obtenerIdDeSpinner(spinnerRelaciones, relacionesIds);
+                String nuevoIdUsuarioStr = etNuevoIdUsuario.getText().toString();
+
+                if (!nuevoIdUsuarioStr.isEmpty() && idRelacion != -1) {
+                    int nuevoIdUsuario = Integer.parseInt(nuevoIdUsuarioStr);
+                    actualizarRelacionUsuarioTarea(idRelacion, nuevoIdUsuario);
+                } else {
+                    Toast.makeText(Usuario_Tareas.this, "Por favor, complete los campos.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
+    private void cargarRelacionesEnSpinner(Spinner spinner) {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT IDRelacion, IDUsuario, IDTarea FROM Usuario_Tarea", null);
+        ArrayList<String> relaciones = new ArrayList<>();
+        relacionesIds = new ArrayList<>();
+
+        int idRelacionIndex = cursor.getColumnIndex("IDRelacion");
+        int idUsuarioIndex = cursor.getColumnIndex("IDUsuario");
+        int idTareaIndex = cursor.getColumnIndex("IDTarea");
+
+        if (idRelacionIndex != -1 && idUsuarioIndex != -1 && idTareaIndex != -1) {
+            while (cursor.moveToNext()) {
+                int idRelacion = cursor.getInt(idRelacionIndex);
+                int idUsuario = cursor.getInt(idUsuarioIndex);
+                int idTarea = cursor.getInt(idTareaIndex);
+                String descripcionRelacion = "Relación: " + idRelacion + " (Usuario: " + idUsuario + ", Tarea: " + idTarea + ")";
+                relaciones.add(descripcionRelacion);
+                relacionesIds.add(idRelacion);
+            }
+        } else {
+            // Manejar el caso en que una o más columnas no se encuentren
+            Toast.makeText(this, "Error al cargar las relaciones", Toast.LENGTH_SHORT).show();
+        }
+        cursor.close();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, relaciones);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+
+    private void actualizarRelacionUsuarioTarea(int idRelacion, int nuevoIdUsuario) {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("IDUsuario", nuevoIdUsuario);
+
+        int affectedRows = db.update("Usuario_Tarea", values, "IDRelacion = ?", new String[]{String.valueOf(idRelacion)});
+        db.close();
+
+        if (affectedRows > 0) {
+            Toast.makeText(this, "Relación actualizada", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Error al actualizar la relación", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void eliminarUsuario_Tarea() {
         setContentView(R.layout.eliminar_usuario_tarea);
