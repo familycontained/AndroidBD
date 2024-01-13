@@ -226,20 +226,28 @@ public class Usuario_Tareas extends Activity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT IDRelacion, IDUsuario, IDTarea FROM Usuario_Tarea", null);
+        Cursor cursor = db.rawQuery("SELECT UT.IDRelacion, UT.IDUsuario, U.Nombre, UT.IDTarea, T.Descripcion " +
+                "FROM Usuario_Tarea UT " +
+                "INNER JOIN Usuario U ON UT.IDUsuario = U.IDUsuario " +
+                "INNER JOIN Tarea T ON UT.IDTarea = T.IDTarea", null);
+
         ArrayList<String> relaciones = new ArrayList<>();
         relacionesIds = new ArrayList<>();
 
         int idRelacionIndex = cursor.getColumnIndex("IDRelacion");
         int idUsuarioIndex = cursor.getColumnIndex("IDUsuario");
+        int nombreUsuarioIndex = cursor.getColumnIndex("Nombre");
         int idTareaIndex = cursor.getColumnIndex("IDTarea");
+        int descripcionTareaIndex = cursor.getColumnIndex("Descripcion");
 
-        if (idRelacionIndex != -1 && idUsuarioIndex != -1 && idTareaIndex != -1) {
+        if (idRelacionIndex != -1 && idUsuarioIndex != -1 && nombreUsuarioIndex != -1 && idTareaIndex != -1 && descripcionTareaIndex != -1) {
             while (cursor.moveToNext()) {
                 int idRelacion = cursor.getInt(idRelacionIndex);
                 int idUsuario = cursor.getInt(idUsuarioIndex);
+                String nombreUsuario = cursor.getString(nombreUsuarioIndex);
                 int idTarea = cursor.getInt(idTareaIndex);
-                String descripcionRelacion = "Relación: " + idRelacion + " (Usuario: " + idUsuario + ", Tarea: " + idTarea + ")";
+                String descripcionTarea = cursor.getString(descripcionTareaIndex);
+                String descripcionRelacion = "Relación: " + idRelacion + " (Usuario: " + nombreUsuario + ", Tarea: " + descripcionTarea + ")";
                 relaciones.add(descripcionRelacion);
                 relacionesIds.add(idRelacion);
             }
@@ -271,6 +279,7 @@ public class Usuario_Tareas extends Activity {
             Toast.makeText(this, "Error al actualizar la relación", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
     private void eliminarUsuario_Tarea() {
