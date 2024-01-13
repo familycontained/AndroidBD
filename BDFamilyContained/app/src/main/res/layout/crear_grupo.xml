@@ -28,19 +28,19 @@
         android:layout_height="wrap_content"
         android:hint="@string/descripcion_grupo"/>
 
-    <!-- Campo de ID del Creador -->
-    <EditText
-        android:id="@+id/idCreador"
+    <!-- Spinner para seleccionar el Creador del Grupo -->
+    <Spinner
+        android:id="@+id/spinnerCreadorGrupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/id_creador"/>
+        android:hint="@string/seleccionar_creador"/>
 
-    <!-- Campo de ID de la Tarea -->
-    <EditText
-        android:id="@+id/idTarea"
+    <!-- Spinner para seleccionar la Tarea del Grupo -->
+    <Spinner
+        android:id="@+id/spinnerTareaGrupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/id_tarea"/>
+        android:hint="@string/seleccionar_tarea"/>
 
     <!-- Botón para Agregar el Grupo -->
     <Button

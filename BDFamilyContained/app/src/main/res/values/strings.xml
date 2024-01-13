@@ -49,6 +49,8 @@
     <string name="descripcion_grupo">Descripción del grupo</string>
     <string name="id_creador">Creador del grupo</string>
     <string name="agregar_grupo">Agregar grupo</string>
+    <string name="seleccionar_creador">Seleccionar Creador</string>
+    <string name="seleccionar_tarea">Seleccionar Tarea</string>
 
     -------------------------------------------------------
    <string-array name="estado_tarea_opciones">
