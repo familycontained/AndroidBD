@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "FamilyContainedDB";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // SQL para crear las tablas
     private static final String TABLE_USUARIOS_CREATE =
@@ -53,11 +53,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Aquí puedes manejar la actualización de la base de datos si cambia la versión
-        if (oldVersion < 4) {
-            // Actualizaciones para la versión 4, por ejemplo
-            // db.execSQL("ALTER TABLE ..."); // Comandos para actualizar la estructura de las tablas
+        if (oldVersion < 4) { // Si es una actualización desde una versión anterior a la 4
+            db.execSQL(TABLE_USUARIO_TAREA_CREATE); // Crea la nueva tabla
         }
-        // Similar para otras versiones más recientes
+        // Agrega aquí más actualizaciones para versiones futuras
     }
+
 }

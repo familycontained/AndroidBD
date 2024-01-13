@@ -178,8 +178,8 @@ public class Usuario_Tareas extends Activity {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("idUsuarios", idUsuario);
-        values.put("idTarea", idTarea);
+        values.put("IDUsuario", idUsuario); // Asegúrate de que la clave coincida con el nombre de la columna
+        values.put("IDTarea", idTarea); // Igualmente aquí
 
         long result = db.insert("Usuario_Tarea", null, values);
         db.close();
@@ -190,6 +190,7 @@ public class Usuario_Tareas extends Activity {
             Toast.makeText(this, "Error al crear la relación", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
     private void modificarUsuario_Tareas() {
