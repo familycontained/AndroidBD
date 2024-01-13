@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -199,8 +200,39 @@ public class Usuario_Tareas extends Activity {
     }
 
     private void eliminarUsuario_Tarea() {
+        setContentView(R.layout.eliminar_usuario_tarea);
 
+        final EditText etIdRelacion = findViewById(R.id.usuarioTareas);
+        Button btnEliminar = findViewById(R.id.btnEliminar);
+
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String idRelacionStr = etIdRelacion.getText().toString();
+                if (!idRelacionStr.isEmpty()) {
+                    int idRelacion = Integer.parseInt(idRelacionStr);
+                    eliminarRelacionDeLaBaseDeDatos(idRelacion);
+                } else {
+                    Toast.makeText(Usuario_Tareas.this, "Por favor, ingrese un ID de relación válido.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
+    private void eliminarRelacionDeLaBaseDeDatos(int idRelacion) {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        int deletedRows = db.delete("Usuario_Tarea", "IDRelacion = ?", new String[]{String.valueOf(idRelacion)});
+        db.close();
+
+        if (deletedRows > 0) {
+            Toast.makeText(this, "Relación eliminada con éxito.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "No se pudo encontrar o eliminar la relación.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void listarUsuario_Tareas() {
         setContentView(R.layout.listar_usuario_tarea); // Asegúrate de que este es el nombre correcto de tu layout
@@ -220,8 +252,8 @@ public class Usuario_Tareas extends Activity {
 
         while (cursor.moveToNext()) {
             int idRelacionIndex = cursor.getColumnIndex("IDRelacion");
-            int usuarioNombreIndex = cursor.getColumnIndex("nombre");
-            int tareaDescripcionIndex = cursor.getColumnIndex("Descripcion");
+            int usuarioNombreIndex = cursor.getColumnIndex("UsuarioNombre");
+            int tareaDescripcionIndex = cursor.getColumnIndex("TareaDescripcion");
 
             if (idRelacionIndex != -1 && usuarioNombreIndex != -1 && tareaDescripcionIndex != -1) {
                 String relacion = "ID Relación: " + cursor.getInt(idRelacionIndex) +
