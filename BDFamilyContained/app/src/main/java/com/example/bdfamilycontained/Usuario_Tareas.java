@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -202,8 +203,41 @@ public class Usuario_Tareas extends Activity {
     }
 
     private void listarUsuario_Tareas() {
+        setContentView(R.layout.listar_usuario_tarea); // Asegúrate de que este es el nombre correcto de tu layout
 
+        ListView listView = findViewById(R.id.listViewRelaciones); // Corrige el ID aquí
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+
+        String query = "SELECT ut.IDRelacion, u.nombre AS UsuarioNombre, t.Descripcion AS TareaDescripcion " +
+                "FROM Usuario_Tarea ut " +
+                "JOIN Usuarios u ON ut.IDUsuario = u.idUsuarios " +
+                "JOIN Tareas t ON ut.IDTarea = t.idTarea";
+
+        Cursor cursor = db.rawQuery(query, null);
+        ArrayList<String> relaciones = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            int idRelacionIndex = cursor.getColumnIndex("IDRelacion");
+            int usuarioNombreIndex = cursor.getColumnIndex("nombre");
+            int tareaDescripcionIndex = cursor.getColumnIndex("Descripcion");
+
+            if (idRelacionIndex != -1 && usuarioNombreIndex != -1 && tareaDescripcionIndex != -1) {
+                String relacion = "ID Relación: " + cursor.getInt(idRelacionIndex) +
+                        ", Usuario: " + cursor.getString(usuarioNombreIndex) +
+                        ", Tarea: " + cursor.getString(tareaDescripcionIndex);
+                relaciones.add(relacion);
+            }
+        }
+
+        cursor.close();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, relaciones);
+        listView.setAdapter(adapter);
     }
 
 
+
 }
+
