@@ -44,11 +44,6 @@
    <string name="id_tarea">ID Tarea</string>
     <string name="relacionar_tarea_a_usuario">Relacionar Tarea a Usuario</string>
     <string name="crear_relaci_n">Crear Relación</string>
-    <string name="crear_grupo">Crear grupo</string>
-    <string name="nombre_grupo">Nombre del grupo</string>
-    <string name="descripcion_grupo">Descripción del grupo</string>
-    <string name="id_creador">Creador del grupo</string>
-    <string name="agregar_grupo">Agregar grupo</string>
 
     -------------------------------------------------------
    <string-array name="estado_tarea_opciones">
