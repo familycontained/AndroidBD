@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "FamilyContainedDB";
+    private static final String DATABASE_NAME = "FamilyContained";
     private static final int DATABASE_VERSION = 4;
 
     // SQL para crear las tablas
