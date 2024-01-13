@@ -28,21 +28,27 @@
         android:layout_height="wrap_content"
         android:hint="@string/descripcion_grupo"/>
 
-    <!-- Spinner para seleccionar el Creador del Grupo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/creador_del_grupo"
+        android:textSize="17sp"/>
     <Spinner
         android:id="@+id/spinnerCreadorGrupo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/seleccionar_creador"/>
+        android:layout_height="wrap_content" />
 
-    <!-- Spinner para seleccionar la Tarea del Grupo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_asignada_al_grupo"
+        android:textSize="17sp"/>
     <Spinner
         android:id="@+id/spinnerTareaGrupo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/seleccionar_tarea"/>
+        android:layout_height="wrap_content" />
 
-    <!-- Botón para Agregar el Grupo -->
+
     <Button
         android:id="@+id/AgregarGrupo"
         android:layout_width="match_parent"
