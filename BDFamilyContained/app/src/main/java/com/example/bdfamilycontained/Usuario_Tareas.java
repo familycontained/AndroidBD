@@ -226,19 +226,19 @@ public class Usuario_Tareas extends Activity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT UT.IDRelacion, UT.IDUsuario, U.Nombre, UT.IDTarea, T.Descripcion " +
+        Cursor cursor = db.rawQuery("SELECT UT.IDRelacion, U.idUsuarios AS IDUsuario, U.Nombre AS NombreUsuario, T.idTarea AS IDTarea, T.Descripcion AS DescripcionTarea " +
                 "FROM Usuario_Tarea UT " +
-                "INNER JOIN Usuario U ON UT.IDUsuario = U.IDUsuario " +
-                "INNER JOIN Tarea T ON UT.IDTarea = T.IDTarea", null);
+                "INNER JOIN Usuarios U ON UT.IDUsuario = U.idUsuarios " +
+                "INNER JOIN Tareas T ON UT.IDTarea = T.idTarea", null);
 
         ArrayList<String> relaciones = new ArrayList<>();
         relacionesIds = new ArrayList<>();
 
         int idRelacionIndex = cursor.getColumnIndex("IDRelacion");
         int idUsuarioIndex = cursor.getColumnIndex("IDUsuario");
-        int nombreUsuarioIndex = cursor.getColumnIndex("Nombre");
+        int nombreUsuarioIndex = cursor.getColumnIndex("NombreUsuario");
         int idTareaIndex = cursor.getColumnIndex("IDTarea");
-        int descripcionTareaIndex = cursor.getColumnIndex("Descripcion");
+        int descripcionTareaIndex = cursor.getColumnIndex("DescripcionTarea");
 
         if (idRelacionIndex != -1 && idUsuarioIndex != -1 && nombreUsuarioIndex != -1 && idTareaIndex != -1 && descripcionTareaIndex != -1) {
             while (cursor.moveToNext()) {
@@ -247,7 +247,7 @@ public class Usuario_Tareas extends Activity {
                 String nombreUsuario = cursor.getString(nombreUsuarioIndex);
                 int idTarea = cursor.getInt(idTareaIndex);
                 String descripcionTarea = cursor.getString(descripcionTareaIndex);
-                String descripcionRelacion = "Relación: " + idRelacion + " (Usuario: " + nombreUsuario + ", Tarea: " + descripcionTarea + ")";
+                String descripcionRelacion = "Relación: " + idRelacion + " (ID Usuario: " + idUsuario + ", Nombre Usuario: " + nombreUsuario + ", ID Tarea: " + idTarea + ", Descripción Tarea: " + descripcionTarea + ")";
                 relaciones.add(descripcionRelacion);
                 relacionesIds.add(idRelacion);
             }
@@ -261,6 +261,8 @@ public class Usuario_Tareas extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
+
+
 
 
     private void actualizarRelacionUsuarioTarea(int idRelacion, int nuevoIdUsuario) {
@@ -279,7 +281,6 @@ public class Usuario_Tareas extends Activity {
             Toast.makeText(this, "Error al actualizar la relación", Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     private void eliminarUsuario_Tarea() {
