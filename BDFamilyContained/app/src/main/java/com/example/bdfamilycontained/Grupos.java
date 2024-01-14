@@ -208,7 +208,7 @@ public class Grupos extends Activity {
                 }
 
                 // Realizar la actualización en la base de datos si hay algún cambio
-                if (!nuevoNombreGrupo.isEmpty() || !nuevaDescripcionGrupo.isEmpty() || idNuevaTarea != -1) {
+                if (!nuevoNombreGrupo.isEmpty() || !nuevaDescripcionGrupo.isEmpty() || idNuevaTarea != obtenerIdTareaActualDelGrupo(idGrupo)) {
                     actualizarGrupoEnLaBaseDeDatos(idGrupo, nuevoNombreGrupo, nuevaDescripcionGrupo, idNuevaTarea);
                 } else {
                     Toast.makeText(Grupos.this, "Realice al menos un cambio o seleccione una nueva tarea.", Toast.LENGTH_SHORT).show();
@@ -216,6 +216,32 @@ public class Grupos extends Activity {
             }
         });
     }
+
+    private int obtenerIdTareaActualDelGrupo(int idGrupo) {
+        int idTareaActual = -1;
+
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {"IDTarea"};
+        String selection = "IDGrupo = ?";
+        String[] selectionArgs = {String.valueOf(idGrupo)};
+
+        Cursor cursor = db.query("Grupos", projection, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            int idTareaColumnIndex = cursor.getColumnIndex("IDTarea");
+            if (idTareaColumnIndex != -1) {
+                idTareaActual = cursor.getInt(idTareaColumnIndex);
+            }
+        }
+
+        cursor.close();
+        db.close();
+
+        return idTareaActual;
+    }
+
 
     private ArrayList<String> obtenerInfoGrupos() {
         ArrayList<String> info = new ArrayList<>();
