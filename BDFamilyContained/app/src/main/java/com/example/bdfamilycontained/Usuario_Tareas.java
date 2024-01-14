@@ -316,18 +316,19 @@ public class Usuario_Tareas extends Activity {
     private void eliminarUsuario_Tarea() {
         setContentView(R.layout.eliminar_usuario_tarea);
 
-        final EditText etIdRelacion = findViewById(R.id.usuarioTareas);
+        Spinner spinnerRelaciones = findViewById(R.id.spinnerEliminarRelacion);
         Button btnEliminar = findViewById(R.id.btnEliminar);
+
+        cargarRelacionesEnSpinner(spinnerRelaciones);
 
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String idRelacionStr = etIdRelacion.getText().toString();
-                if (!idRelacionStr.isEmpty()) {
-                    int idRelacion = Integer.parseInt(idRelacionStr);
+                int idRelacion = obtenerIdDeSpinner(spinnerRelaciones, relacionesIds);
+                if (idRelacion != -1) {
                     eliminarRelacionDeLaBaseDeDatos(idRelacion);
                 } else {
-                    Toast.makeText(Usuario_Tareas.this, "Por favor, ingrese un ID de relación válido.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Usuario_Tareas.this, "Por favor, seleccione una relación válida.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -342,6 +343,7 @@ public class Usuario_Tareas extends Activity {
             }
         });
     }
+
 
     private void eliminarRelacionDeLaBaseDeDatos(int idRelacion) {
         DatabaseHelper dbHelper = new DatabaseHelper(this);

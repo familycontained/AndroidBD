@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -135,10 +136,15 @@ public class Tareas extends Activity {
     private void modificarTareas() {
         setContentView(R.layout.modificar_tarea);
 
-        EditText etIdTarea = findViewById(R.id.idTarea);
+        Spinner spinnerTareas = findViewById(R.id.spinnerTarea);
         EditText etDescripcion = findViewById(R.id.descripcionTarea);
         Spinner estadoSpinner = findViewById(R.id.estado_tarea_opciones);
         Button btnModificar = findViewById(R.id.btnModificar);
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+
+        // Obtener información de tareas y llenar el Spinner
+        ArrayList<String> infoTareas = obtenerInfoTareas();
+        llenarSpinnerConDatos(spinnerTareas, infoTareas);
 
         // Configurar el spinner de estado
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -149,19 +155,25 @@ public class Tareas extends Activity {
         btnModificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idTarea = etIdTarea.getText().toString();
+                int idTarea = obtenerIdDeSpinner(spinnerTareas);
                 String nuevaDescripcion = etDescripcion.getText().toString();
                 String nuevoEstado = estadoSpinner.getSelectedItem().toString();
 
-                if (idTarea.isEmpty()) {
-                    Toast.makeText(Tareas.this, "Por favor, ingrese el ID de la tarea.", Toast.LENGTH_SHORT).show();
+                if (idTarea == -1) {
+                    Toast.makeText(Tareas.this, "Por favor, seleccione una tarea.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                actualizarTareaEnLaBaseDeDatos(idTarea, nuevaDescripcion, nuevoEstado);
+                // Verificar que al menos uno de los campos (descripción o estado) esté lleno
+                if (nuevaDescripcion.isEmpty() && nuevoEstado.isEmpty()) {
+                    Toast.makeText(Tareas.this, "Ingrese al menos una modificación (descripción o estado).", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                actualizarTareaEnLaBaseDeDatos(String.valueOf(idTarea), nuevaDescripcion, nuevoEstado);
             }
         });
-        Button btnVolverAtras = findViewById(R.id.volverAtras);
+
         btnVolverAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,6 +182,51 @@ public class Tareas extends Activity {
                 finish();
             }
         });
+    }
+
+    private ArrayList<String> obtenerInfoTareas() {
+        ArrayList<String> info = new ArrayList<>();
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT idTarea, Descripcion FROM Tareas", null);
+        int idTareaColumnIndex = cursor.getColumnIndex("idTarea");
+        int descripcionColumnIndex = cursor.getColumnIndex("Descripcion");
+
+        if (idTareaColumnIndex != -1 && descripcionColumnIndex != -1) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(idTareaColumnIndex);
+                String descripcion = cursor.getString(descripcionColumnIndex);
+                info.add(id + " - " + descripcion);
+            }
+        }
+        cursor.close();
+        db.close();
+
+        return info;
+    }
+
+    private void llenarSpinnerConDatos(Spinner spinner, ArrayList<String> datos) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, datos);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    private int obtenerIdDeSpinner(Spinner spinner) {
+        String selectedItem = (String) spinner.getSelectedItem();
+        if (selectedItem != null && !selectedItem.isEmpty()) {
+            String[] parts = selectedItem.split(" - ");
+            if (parts.length > 0) {
+                try {
+                    return Integer.parseInt(parts[0]);
+                } catch (NumberFormatException e) {
+                    String errorMessage = e.getMessage();
+                    assert errorMessage != null;
+                    Log.e("NumberFormatException", errorMessage);
+                }
+            }
+        }
+        return -1;
     }
 
     private void actualizarTareaEnLaBaseDeDatos(String idTarea, String descripcion, String estado) {
@@ -197,20 +254,24 @@ public class Tareas extends Activity {
     private void eliminarTarea() {
         setContentView(R.layout.eliminar_tarea);
 
-        final EditText etIdTarea = findViewById(R.id.idTarea);
-        Button btnEliminar =findViewById(R.id.btnEliminar);
+        Spinner spinnerTareas = findViewById(R.id.spinnerEliminarTarea);
+        Button btnEliminar = findViewById(R.id.btnEliminar);
+
+        ArrayList<String> infoTareas = obtenerInfoTareas();
+        llenarSpinnerConDatos(spinnerTareas, infoTareas);
 
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String idTarea = etIdTarea.getText().toString();
-                if (!idTarea.isEmpty()) {
-                    eliminarTareaDeLaBaseDeDatos(idTarea);
+                int idTarea = obtenerIdDeSpinner(spinnerTareas);
+                if (idTarea != -1) {
+                    eliminarTareaDeLaBaseDeDatos(String.valueOf(idTarea));
                 } else {
-                    Toast.makeText(Tareas.this, "Por favor, ingrese un ID de Tarea.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Tareas.this, "Por favor, seleccione una tarea.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
         Button btnVolverAtras = findViewById(R.id.volverAtras);
         btnVolverAtras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,6 +282,9 @@ public class Tareas extends Activity {
             }
         });
     }
+
+// Resto de tus métodos
+
 
     private void eliminarTareaDeLaBaseDeDatos(String idTarea) {
         DatabaseHelper dbHelper = new DatabaseHelper(Tareas.this);
