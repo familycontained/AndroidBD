@@ -59,13 +59,8 @@ public class Usuarios extends Activity {
         btnVolverAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para iniciar la actividad MainActivity (o la actividad a la que desees volver)
                 Intent intent = new Intent(Usuarios.this, MainActivity.class);
-
-                // Iniciar la actividad MainActivity
                 startActivity(intent);
-
-                // Cerrar la actividad actual
                 finish();
             }
         });
@@ -165,6 +160,15 @@ public class Usuarios extends Activity {
             }
         });
 
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Usuarios.this, Usuarios.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 
@@ -274,6 +278,16 @@ public class Usuarios extends Activity {
         // Usar un ArrayAdapter para mostrar la lista de usuarios
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, usuarios);
         listView.setAdapter(adapter);
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Usuarios.this, Usuarios.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 

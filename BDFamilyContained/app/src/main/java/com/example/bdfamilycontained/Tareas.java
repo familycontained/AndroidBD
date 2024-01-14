@@ -64,13 +64,8 @@ public class Tareas extends Activity {
         btnVolverAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para iniciar la actividad MainActivity (o la actividad a la que desees volver)
                 Intent intent = new Intent(Tareas.this, MainActivity.class);
-
-                // Iniciar la actividad MainActivity
                 startActivity(intent);
-
-                // Cerrar la actividad actual
                 finish();
             }
         });
@@ -124,6 +119,16 @@ public class Tareas extends Activity {
                 }
             }
         });
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Tareas.this, Tareas.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 
@@ -154,6 +159,15 @@ public class Tareas extends Activity {
                 }
 
                 actualizarTareaEnLaBaseDeDatos(idTarea, nuevaDescripcion, nuevoEstado);
+            }
+        });
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Tareas.this, Tareas.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -195,6 +209,15 @@ public class Tareas extends Activity {
                 } else {
                     Toast.makeText(Tareas.this, "Por favor, ingrese un ID de Tarea.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Tareas.this, Tareas.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -251,6 +274,16 @@ public class Tareas extends Activity {
         // Usar un ArrayAdapter para mostrar la lista de tareas
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tareas);
         listView.setAdapter(adapter);
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Tareas.this, Tareas.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 

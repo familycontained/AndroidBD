@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -60,13 +61,8 @@ public class Grupos extends Activity {
         btnVolverAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para iniciar la actividad MainActivity (o la actividad a la que desees volver)
                 Intent intent = new Intent(Grupos.this, MainActivity.class);
-
-                // Iniciar la actividad MainActivity
                 startActivity(intent);
-
-                // Cerrar la actividad actual
                 finish();
             }
         });
@@ -84,7 +80,6 @@ public class Grupos extends Activity {
         Spinner spinnerTareaGrupo = findViewById(R.id.spinnerTareaGrupo);
         Button btnAgregarGrupo = findViewById(R.id.AgregarGrupo);
 
-        // Llenar los Spinners con la información de usuarios y tareas
         llenarSpinnerConDatos(spinnerCreadorGrupo, obtenerInfoUsuarios());
         llenarSpinnerConDatos(spinnerTareaGrupo, obtenerInfoTareas());
 
@@ -102,6 +97,15 @@ public class Grupos extends Activity {
                 } else {
                     Toast.makeText(Grupos.this, "Por favor, complete todos los campos y seleccione un creador y una tarea.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Grupos.this, Grupos.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -136,16 +140,18 @@ public class Grupos extends Activity {
     private int obtenerIdDeSpinner(Spinner spinner, ArrayList<Integer> integers) {
         String selectedItem = (String) spinner.getSelectedItem();
         if (selectedItem != null && !selectedItem.isEmpty()) {
-            String[] parts = selectedItem.split(" - "); // Suponiendo que el formato es "ID - Nombre/Descripción"
+            String[] parts = selectedItem.split(" - ");
             if (parts.length > 0) {
                 try {
-                    return Integer.parseInt(parts[0]); // Obtiene el ID
+                    return Integer.parseInt(parts[0]);
                 } catch (NumberFormatException e) {
-                    // Manejar excepción si el formato no es el esperado
+                    String errorMessage = e.getMessage();
+                    assert errorMessage != null;
+                    Log.e("NumberFormatException", errorMessage);
                 }
             }
         }
-        return -1; // Retorna -1 si no hay selección válida
+        return -1;
     }
 
 
@@ -206,7 +212,6 @@ public class Grupos extends Activity {
         ArrayList<String> infoTareas = obtenerInfoTareas();
         llenarSpinnerConDatos(spinnerNuevasTareas, infoTareas);
 
-        // Llenar el spinner de grupos con la información existente
         ArrayList<String> infoGrupos = obtenerInfoGrupos();
         llenarSpinnerConDatos(spinnerGrupos, infoGrupos);
 
@@ -218,18 +223,28 @@ public class Grupos extends Activity {
                 String nuevaDescripcionGrupo = etNuevaDescripcionGrupo.getText().toString();
                 int idNuevaTarea = obtenerIdDeSpinner(spinnerNuevasTareas, obtenerIdsTarea());
 
-                // Verificar que los valores no estén vacíos y que el ID del grupo sea válido
                 if (idGrupo == -1) {
                     Toast.makeText(Grupos.this, "Seleccione un grupo existente.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Realizar la actualización en la base de datos si hay algún cambio
                 if (!nuevoNombreGrupo.isEmpty() || !nuevaDescripcionGrupo.isEmpty() || idNuevaTarea != obtenerIdTareaActualDelGrupo(idGrupo)) {
                     actualizarGrupoEnLaBaseDeDatos(idGrupo, nuevoNombreGrupo, nuevaDescripcionGrupo, idNuevaTarea);
+                    etNuevoNombreGrupo.setText("");
+                    etNuevaDescripcionGrupo.setText("");
                 } else {
                     Toast.makeText(Grupos.this, "Realice al menos un cambio o seleccione una nueva tarea.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Grupos.this, Grupos.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -320,8 +335,6 @@ public class Grupos extends Activity {
                 int id = cursor.getInt(idColumnIndex);
                 ids.add(id);
             }
-        } else {
-            // Manejar el caso de que la columna no exista
         }
 
         cursor.close();
@@ -329,13 +342,6 @@ public class Grupos extends Activity {
 
         return ids;
     }
-
-    private void llenarSpinnerConIdsTarea(Spinner spinner, ArrayList<Integer> ids) {
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ids);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
 
     private ArrayList<Integer> obtenerIdsGrupo() {
         ArrayList<Integer> ids = new ArrayList<>();
@@ -350,20 +356,12 @@ public class Grupos extends Activity {
                 int id = cursor.getInt(idColumnIndex);
                 ids.add(id);
             }
-        } else {
-            // Manejar el caso de que la columna no exista
         }
 
         cursor.close();
         db.close();
 
         return ids;
-    }
-
-    private void llenarSpinnerConIdsGrupo(Spinner spinner, ArrayList<Integer> ids) {
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ids);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
     }
 
 
@@ -382,6 +380,16 @@ public class Grupos extends Activity {
                 } else {
                     Toast.makeText(Grupos.this, "Por favor, ingrese un ID de grupo válido.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Grupos.this, Grupos.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -439,6 +447,16 @@ public class Grupos extends Activity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, gruposList);
         listViewGrupos.setAdapter(adapter);
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Grupos.this, Grupos.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private String obtenerInfoUsuario(SQLiteDatabase db, int idUsuario) {

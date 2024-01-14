@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ModificarUsuario"
+        android:textStyle="bold"
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
@@ -18,14 +19,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="ID Usuario"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"/>
 
     <EditText
         android:id="@+id/etNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Modificar Nombre"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"/>
 
     <EditText
         android:id="@+id/etCorreo"
@@ -33,7 +42,11 @@
         android:layout_height="wrap_content"
         android:hint="Modificar Correo Electrónico"
         android:inputType="textEmailAddress"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background" />
 
     <EditText
         android:id="@+id/etEdad"
@@ -41,22 +54,24 @@
         android:layout_height="wrap_content"
         android:hint="Modificar Edad"
         android:inputType="number"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background" />
 
     <Button
         android:id="@+id/btnModificar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Modificar"
-        android:layout_gravity="center_horizontal" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ID_no_existe"
-        android:textSize="24sp"
-        android:visibility="invisible"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

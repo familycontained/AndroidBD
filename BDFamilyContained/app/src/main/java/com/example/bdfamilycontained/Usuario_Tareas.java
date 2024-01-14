@@ -65,13 +65,8 @@ public class Usuario_Tareas extends Activity {
         btnVolverAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para iniciar la actividad MainActivity (o la actividad a la que desees volver)
                 Intent intent = new Intent(Usuario_Tareas.this, MainActivity.class);
-
-                // Iniciar la actividad MainActivity
                 startActivity(intent);
-
-                // Cerrar la actividad actual
                 finish();
             }
         });
@@ -97,6 +92,16 @@ public class Usuario_Tareas extends Activity {
                 } else {
                     Toast.makeText(Usuario_Tareas.this, "Selección no válida", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Usuario_Tareas.this, Usuario_Tareas.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -236,6 +241,15 @@ public class Usuario_Tareas extends Activity {
                 }
             }
         });
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Usuario_Tareas.this, Usuario_Tareas.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void cargarRelacionesEnSpinner(Spinner spinner) {
@@ -317,6 +331,16 @@ public class Usuario_Tareas extends Activity {
                 }
             }
         });
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Usuario_Tareas.this, Usuario_Tareas.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void eliminarRelacionDeLaBaseDeDatos(int idRelacion) {
@@ -367,6 +391,17 @@ public class Usuario_Tareas extends Activity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, relaciones);
         listView.setAdapter(adapter);
+
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Usuario_Tareas.this, Usuario_Tareas.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 
