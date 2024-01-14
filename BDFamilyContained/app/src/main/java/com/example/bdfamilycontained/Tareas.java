@@ -81,7 +81,6 @@ public class Tareas extends Activity {
         TextView tvFechaCreacion = findViewById(R.id.tvFechaCreacion);
         Button submitButton = findViewById(R.id.Agregar);
 
-        // Establecer la fecha de creación
         String fechaCreacion = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         tvFechaCreacion.setText(fechaCreacion);
 
@@ -142,11 +141,9 @@ public class Tareas extends Activity {
         Button btnModificar = findViewById(R.id.btnModificar);
         Button btnVolverAtras = findViewById(R.id.volverAtras);
 
-        // Obtener información de tareas y llenar el Spinner
         ArrayList<String> infoTareas = obtenerInfoTareas();
         llenarSpinnerConDatos(spinnerTareas, infoTareas);
 
-        // Configurar el spinner de estado
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.estado_tarea_opciones, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -164,7 +161,6 @@ public class Tareas extends Activity {
                     return;
                 }
 
-                // Verificar que al menos uno de los campos (descripción o estado) esté lleno
                 if (nuevaDescripcion.isEmpty() && nuevoEstado.isEmpty()) {
                     Toast.makeText(Tareas.this, "Ingrese al menos una modificación (descripción o estado).", Toast.LENGTH_SHORT).show();
                     return;
@@ -283,14 +279,10 @@ public class Tareas extends Activity {
         });
     }
 
-// Resto de tus métodos
-
-
     private void eliminarTareaDeLaBaseDeDatos(String idTarea) {
         DatabaseHelper dbHelper = new DatabaseHelper(Tareas.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // Asegúrate de que el nombre de la columna aquí coincide con el nombre en tu base de datos
         int deletedRows = db.delete("Tareas", "IDTarea = ?", new String[]{idTarea});
         db.close();
 
@@ -312,10 +304,8 @@ public class Tareas extends Activity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Consulta para obtener los datos de las tareas
         Cursor cursor = db.rawQuery("SELECT * FROM Tareas", null);
 
-        // Obtiene los índices de las columnas
         int idTareaIndex = cursor.getColumnIndex("idTarea");
         int descripcionIndex = cursor.getColumnIndex("Descripcion");
         int fechaCreacionIndex = cursor.getColumnIndex("FechaCreacion");
@@ -330,12 +320,10 @@ public class Tareas extends Activity {
             String fechaRealizacion = fechaRealizacionIndex != -1 ? cursor.getString(fechaRealizacionIndex) : "Fecha Realización no disponible";
             String estado = estadoIndex != -1 ? cursor.getString(estadoIndex) : "Estado no disponible";
 
-            // Formatear la información de la tarea
             tareas.add("ID: " + idTarea + ", Descripción: " + descripcion + ", Fecha Creación: " + fechaCreacion + ", Fecha Realización: " + fechaRealizacion + ", Estado: " + estado);
         }
         cursor.close();
 
-        // Usar un ArrayAdapter para mostrar la lista de tareas
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tareas);
         listView.setAdapter(adapter);
 

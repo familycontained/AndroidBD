@@ -317,7 +317,6 @@ public class Grupos extends Activity {
 
         if (affectedRows > 0) {
             Toast.makeText(Grupos.this, "Grupo actualizado con éxito", Toast.LENGTH_SHORT).show();
-            // Puedes realizar otras acciones aquí, como limpiar los campos o regresar a la actividad anterior.
         } else {
             Toast.makeText(Grupos.this, "Error al actualizar el grupo", Toast.LENGTH_SHORT).show();
         }
@@ -436,10 +435,8 @@ public class Grupos extends Activity {
                 int idCreador = cursor.getInt(idCreadorIndex);
                 int idTarea = cursor.getInt(idTareaIndex);
 
-                // Obtener el nombre del creador
                 String nombreCreador = obtenerInfoUsuario(db, idCreador);
 
-                // Obtener la descripción de la tarea
                 String descripcionTarea = obtenerInfoTarea(db, idTarea);
 
                 String grupoInfo = "ID: " + idGrupo + ", Nombre: " + nombreGrupo + ", Descripción: " + descripcionGrupo + ", Creador: " + nombreCreador + ", Tarea: " + descripcionTarea;

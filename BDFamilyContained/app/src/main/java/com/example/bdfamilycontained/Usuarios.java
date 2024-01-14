@@ -51,7 +51,7 @@ public class Usuarios extends Activity {
             }
         });
 
-        Button botonListarUsuarios = findViewById(R.id.listar_usuarios); // Asegúrate de que el ID es correcto
+        Button botonListarUsuarios = findViewById(R.id.listar_usuarios);
         botonListarUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,9 +99,6 @@ public class Usuarios extends Activity {
                 DatabaseHelper dbHelper = new DatabaseHelper(Usuarios.this);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-                // Verificar si el usuario ya existe (opcional, depende de tu lógica de negocio)
-                // ...
-
                 ContentValues values = new ContentValues();
                 values.put("nombre", nombre);
                 values.put("correo_electronico", correo);
@@ -142,7 +139,6 @@ public class Usuarios extends Activity {
         Button btnModificar = findViewById(R.id.btnModificar);
         Button btnVolverAtras = findViewById(R.id.volverAtras);
 
-        // Obtener información de usuarios y llenar el Spinner
         ArrayList<String> usuariosInfo = obtenerInfoUsuarios();
         llenarSpinnerConDatos(spinnerUsuarios, usuariosInfo);
 
@@ -153,7 +149,7 @@ public class Usuarios extends Activity {
                 String nuevoNombre = etNombre.getText().toString();
                 String nuevoCorreo = etCorreo.getText().toString();
 
-                // Verificar si al menos uno de los campos está lleno
+
                 if (nuevoNombre.isEmpty() && nuevoCorreo.isEmpty()) {
                     Toast.makeText(Usuarios.this, "Ingrese al menos un campo para actualizar.", Toast.LENGTH_SHORT).show();
                     return;
@@ -176,16 +172,16 @@ public class Usuarios extends Activity {
     private int obtenerIdDeSpinner(Spinner spinner) {
         String selectedItem = (String) spinner.getSelectedItem();
         if (selectedItem != null && !selectedItem.isEmpty()) {
-            String[] parts = selectedItem.split(" - "); // Suponiendo que el formato es "ID - Nombre"
+            String[] parts = selectedItem.split(" - ");
             if (parts.length > 0) {
                 try {
-                    return Integer.parseInt(parts[0]); // Obtiene el ID
+                    return Integer.parseInt(parts[0]);
                 } catch (NumberFormatException e) {
-                    // Manejar excepción si el formato no es el esperado
+
                 }
             }
         }
-        return -1; // Retorna -1 si no hay selección válida
+        return -1;
     }
 
     private void llenarSpinnerConDatos(Spinner spinner, ArrayList<String> datos) {
@@ -246,7 +242,6 @@ public class Usuarios extends Activity {
         Spinner spinnerUsuarios = findViewById(R.id.spinnerEliminarUsuario);
         Button btnEliminar = findViewById(R.id.btnEliminar);
 
-        // Obtener información de usuarios y llenar el Spinner
         ArrayList<String> infoUsuarios = obtenerInfoUsuarios();
         llenarSpinnerConDatos(spinnerUsuarios, infoUsuarios);
 
@@ -294,10 +289,10 @@ public class Usuarios extends Activity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Consulta para obtener los datos de los usuarios
+
         Cursor cursor = db.rawQuery("SELECT * FROM Usuarios", null);
 
-        // Obtiene los índices de las columnas
+
         int idUsuariosIndex = cursor.getColumnIndex("idUsuarios");
         int nombreIndex = cursor.getColumnIndex("nombre");
         int correoIndex = cursor.getColumnIndex("correo_electronico");
@@ -305,19 +300,17 @@ public class Usuarios extends Activity {
 
         List<String> usuarios = new ArrayList<>();
         while(cursor.moveToNext()) {
-            // Verifica que los índices de las columnas sean válidos
+
             String idUsuario = nombreIndex != -1 ? cursor.getString(idUsuariosIndex) : "ID no disponible";
             String nombre = nombreIndex != -1 ? cursor.getString(nombreIndex) : "Nombre no disponible";
             String correo = correoIndex != -1 ? cursor.getString(correoIndex) : "Correo no disponible";
             String edad = edadIndex != -1 ? Integer.toString(cursor.getInt(edadIndex)) : "Edad no disponible";
 
-            // Formatear la información del usuario
+
             usuarios.add(idUsuario + " - " + nombre + " - " + correo + " - " + edad);
         }
         cursor.close();
 
-
-        // Usar un ArrayAdapter para mostrar la lista de usuarios
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, usuarios);
         listView.setAdapter(adapter);
 

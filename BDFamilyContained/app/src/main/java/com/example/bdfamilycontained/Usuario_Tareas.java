@@ -136,9 +136,7 @@ public class Usuario_Tareas extends Activity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Guarda el ID del usuario seleccionado
                 int selectedUserId = usuariosIds.get(position);
-                // Haz algo con el ID seleccionado si es necesario
             }
 
             @Override
@@ -154,7 +152,7 @@ public class Usuario_Tareas extends Activity {
 
         Cursor cursor = db.rawQuery("SELECT idTarea, Descripcion FROM Tareas", null);
         ArrayList<String> tareas = new ArrayList<>();
-        tareasIds = new ArrayList<>(); // Asegúrate de que tareasIds es un miembro de la clase
+        tareasIds = new ArrayList<>();
 
         int idColumnIndex = cursor.getColumnIndex("idTarea");
         int descripcionColumnIndex = cursor.getColumnIndex("Descripcion");
@@ -175,9 +173,8 @@ public class Usuario_Tareas extends Activity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Guarda el ID de la tarea seleccionada
+
                 int selectedTaskId = tareasIds.get(position);
-                // Haz algo con el ID seleccionado si es necesario
             }
 
             @Override
@@ -282,7 +279,6 @@ public class Usuario_Tareas extends Activity {
                 relacionesIds.add(idRelacion);
             }
         } else {
-            // Manejar el caso en que una o más columnas no se encuentren
             Toast.makeText(this, "Error al cargar las relaciones", Toast.LENGTH_SHORT).show();
         }
         cursor.close();
