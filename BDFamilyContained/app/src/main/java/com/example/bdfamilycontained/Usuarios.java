@@ -71,6 +71,11 @@ public class Usuarios extends Activity {
         });
     }
 
+
+
+
+
+
     private void crearUsuario() {
         setContentView(R.layout.registro_usuarios);
 
@@ -116,6 +121,17 @@ public class Usuarios extends Activity {
                 }
             }
         });
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Usuarios.this, Usuarios.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private void modificarUsuarios() {
@@ -148,6 +164,8 @@ public class Usuarios extends Activity {
                 actualizarUsuarioEnLaBaseDeDatos(idUsuario, nuevoNombre, nuevoCorreo);
             }
         });
+
+
     }
 
     private void actualizarUsuarioEnLaBaseDeDatos(String idUsuario, String nombre, String correo) {
@@ -180,7 +198,6 @@ public class Usuarios extends Activity {
 
     }
 
-
     private void eliminarUsuario() {
         setContentView(R.layout.eliminar_usuario);
 
@@ -198,6 +215,16 @@ public class Usuarios extends Activity {
                 }
             }
         });
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Usuarios.this, Usuarios.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void eliminarUsuarioDeLaBaseDeDatos(String idUsuario) {
@@ -213,10 +240,6 @@ public class Usuarios extends Activity {
             Toast.makeText(Usuarios.this, "No se pudo eliminar el usuario.", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
-
 
     private void listarUsuarios() {
         setContentView(R.layout.listar_usuario);
@@ -252,5 +275,8 @@ public class Usuarios extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, usuarios);
         listView.setAdapter(adapter);
     }
+
+
+
 
 }

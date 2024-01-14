@@ -29,5 +29,23 @@
         android:layout_height="wrap_content"
         android:text="@string/crear_relaci_n"
         android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="bottom">
+        <Button
+            android:id="@+id/volverAtras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/volver_ataras"
+            android:textColor="@android:color/white"
+            android:background="#3fbb09"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            style="@style/ButtonStyle" />
+
+    </LinearLayout>
 
 </LinearLayout>
