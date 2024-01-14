@@ -74,8 +74,8 @@ public class Grupos extends Activity {
         btnAgregarGrupo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int idCreador = obtenerIdDeSpinner(spinnerCreadorGrupo);
-                int idTarea = obtenerIdDeSpinner(spinnerTareaGrupo);
+                int idCreador = obtenerIdDeSpinner(spinnerCreadorGrupo, obtenerIdsGrupo());
+                int idTarea = obtenerIdDeSpinner(spinnerTareaGrupo, obtenerIdsGrupo());
 
                 String nombreGrupo = etNombreGrupo.getText().toString();
                 String descripcionGrupo = etDescripcionGrupo.getText().toString();
@@ -116,7 +116,7 @@ public class Grupos extends Activity {
         spinner.setAdapter(adapter);
     }
 
-    private int obtenerIdDeSpinner(Spinner spinner) {
+    private int obtenerIdDeSpinner(Spinner spinner, ArrayList<Integer> integers) {
         String selectedItem = (String) spinner.getSelectedItem();
         if (selectedItem != null && !selectedItem.isEmpty()) {
             String[] parts = selectedItem.split(" - "); // Suponiendo que el formato es "ID - Nombre/Descripción"
@@ -178,8 +178,152 @@ public class Grupos extends Activity {
 
 
     private void modificarGrupos() {
+        setContentView(R.layout.modificar_grupo);
 
+        Spinner spinnerGrupos = findViewById(R.id.spinnerGrupos);
+        EditText etNuevoNombreGrupo = findViewById(R.id.etNuevoNombreGrupo);
+        EditText etNuevaDescripcionGrupo = findViewById(R.id.etNuevaDescripcionGrupo);
+        Spinner spinnerNuevasTareas = findViewById(R.id.spinnerNuevasTareas);
+        Button btnModificarRelacion = findViewById(R.id.btnModificarRelacion);
+
+        ArrayList<String> infoTareas = obtenerInfoTareas();
+        llenarSpinnerConDatos(spinnerNuevasTareas, infoTareas);
+
+        // Llenar el spinner de grupos con la información existente
+        ArrayList<String> infoGrupos = obtenerInfoGrupos();
+        llenarSpinnerConDatos(spinnerGrupos, infoGrupos);
+
+        btnModificarRelacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int idGrupo = obtenerIdDeSpinner(spinnerGrupos, obtenerIdsGrupo());
+                String nuevoNombreGrupo = etNuevoNombreGrupo.getText().toString();
+                String nuevaDescripcionGrupo = etNuevaDescripcionGrupo.getText().toString();
+                int idNuevaTarea = obtenerIdDeSpinner(spinnerNuevasTareas, obtenerIdsTarea());
+
+                // Verificar que los valores no estén vacíos y que el ID del grupo sea válido
+                if (idGrupo == -1) {
+                    Toast.makeText(Grupos.this, "Seleccione un grupo existente.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                // Realizar la actualización en la base de datos si hay algún cambio
+                if (!nuevoNombreGrupo.isEmpty() || !nuevaDescripcionGrupo.isEmpty() || idNuevaTarea != -1) {
+                    actualizarGrupoEnLaBaseDeDatos(idGrupo, nuevoNombreGrupo, nuevaDescripcionGrupo, idNuevaTarea);
+                } else {
+                    Toast.makeText(Grupos.this, "Realice al menos un cambio o seleccione una nueva tarea.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private ArrayList<String> obtenerInfoGrupos() {
+        ArrayList<String> info = new ArrayList<>();
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT IDGrupo, NombreGrupo FROM Grupos", null);
+        int idGrupoColumnIndex = cursor.getColumnIndex("IDGrupo");
+        int nombreGrupoColumnIndex = cursor.getColumnIndex("NombreGrupo");
+
+        if (idGrupoColumnIndex != -1 && nombreGrupoColumnIndex != -1) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(idGrupoColumnIndex);
+                String nombre = cursor.getString(nombreGrupoColumnIndex);
+                info.add(id + " - " + nombre);
+            }
+        }
+        cursor.close();
+        db.close();
+
+        return info;
+    }
+
+
+    private void actualizarGrupoEnLaBaseDeDatos(int idGrupo, String nuevoNombre, String nuevaDescripcion, int idNuevaTarea) {
+        DatabaseHelper dbHelper = new DatabaseHelper(Grupos.this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        if (!nuevoNombre.isEmpty()) {
+            values.put("NombreGrupo", nuevoNombre);
+        }
+        if (!nuevaDescripcion.isEmpty()) {
+            values.put("DescripcionGrupo", nuevaDescripcion);
+        }
+        values.put("IDTarea", idNuevaTarea);
+
+        int affectedRows = db.update("Grupos", values, "IDGrupo = ?", new String[]{String.valueOf(idGrupo)});
+        db.close();
+
+        if (affectedRows > 0) {
+            Toast.makeText(Grupos.this, "Grupo actualizado con éxito", Toast.LENGTH_SHORT).show();
+            // Puedes realizar otras acciones aquí, como limpiar los campos o regresar a la actividad anterior.
+        } else {
+            Toast.makeText(Grupos.this, "Error al actualizar el grupo", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private ArrayList<Integer> obtenerIdsTarea() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT IDTarea FROM Tareas", null);
+        int idColumnIndex = cursor.getColumnIndex("IDTarea");
+
+        if (idColumnIndex != -1) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(idColumnIndex);
+                ids.add(id);
+            }
+        } else {
+            // Manejar el caso de que la columna no exista
+        }
+
+        cursor.close();
+        db.close();
+
+        return ids;
+    }
+
+    private void llenarSpinnerConIdsTarea(Spinner spinner, ArrayList<Integer> ids) {
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ids);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+
+    private ArrayList<Integer> obtenerIdsGrupo() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT IDGrupo FROM Grupos", null);
+        int idColumnIndex = cursor.getColumnIndex("IDGrupo");
+
+        if (idColumnIndex != -1) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(idColumnIndex);
+                ids.add(id);
+            }
+        } else {
+            // Manejar el caso de que la columna no exista
+        }
+
+        cursor.close();
+        db.close();
+
+        return ids;
+    }
+
+    private void llenarSpinnerConIdsGrupo(Spinner spinner, ArrayList<Integer> ids) {
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ids);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+
     private void eliminarGrupo() {
         setContentView(R.layout.eliminar_grupo);
         EditText etIdGrupo = findViewById(R.id.idTarea);

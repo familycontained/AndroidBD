@@ -53,6 +53,8 @@
     <string name="seleccionar_tarea">Seleccionar Tarea</string>
     <string name="tarea_asignada_al_grupo">Tarea asignada al grupo</string>
     <string name="creador_del_grupo">Creador del Grupo</string>
+    <string name="nueva_descripcion_grupo">Nueva Descripción Grupo</string>
+    <string name="nuevo_nombre_grupo">Nuevo Nombre Grupo</string>
 
     -------------------------------------------------------
    <string-array name="estado_tarea_opciones">

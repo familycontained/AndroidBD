@@ -12,29 +12,40 @@
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/grupos"
         android:textSize="17sp"/>
+
+    <!-- Spinner para los grupos -->
     <Spinner
         android:id="@+id/spinnerGrupos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <!-- EditText para el nombre -->
     <EditText
-        android:id="@+id/etNuevoIdUsuario"
+        android:id="@+id/etNuevoNombreGrupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nuevo ID Usuario"
-        android:inputType="number" />
+        android:hint="@string/nuevo_nombre_grupo" />
 
+    <!-- EditText para la descripción -->
     <EditText
-        android:id="@+id/etNuevatarea"
+        android:id="@+id/etNuevaDescripcionGrupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nuevo ID Usuario"
-        android:inputType="number" />
+        android:hint="@string/nueva_descripcion_grupo" />
+
+    <!-- Spinner para las tareas -->
+    <Spinner
+        android:id="@+id/spinnerNuevasTareas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Botón para modificar la relación -->
     <Button
         android:id="@+id/btnModificarRelacion"
         android:layout_width="wrap_content"
