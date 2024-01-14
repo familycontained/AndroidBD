@@ -10,13 +10,21 @@
         android:layout_height="wrap_content"
         android:text="@string/listar_usuario_tarea"
         android:textSize="24sp"
+        android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/border_drawable">
+    </FrameLayout>
     <ListView
         android:id="@+id/listViewRelaciones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

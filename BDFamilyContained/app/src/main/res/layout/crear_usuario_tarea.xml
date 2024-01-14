@@ -9,26 +9,59 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/relacionar_tarea_a_usuario"
+        android:textStyle="bold"
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usuarios"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_marginBottom="10dp"/>
+
 
     <Spinner
         android:id="@+id/spinnerSeleccionarUsuario"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:entries="@array/estado_tarea_opciones"
+        style="@style/SpinnerStyle"
+        android:background="@drawable/spinner_background"
+        android:popupBackground="@color/colorSpinnerPopupBackground"
+        android:layout_marginBottom="16dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tareas"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_marginBottom="10dp"/>
     <Spinner
         android:id="@+id/spinnerSeleccionarTarea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:entries="@array/estado_tarea_opciones"
+        style="@style/SpinnerStyle"
+        android:background="@drawable/spinner_background"
+        android:popupBackground="@color/colorSpinnerPopupBackground"
+        android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/btnCrearRelacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/crear_relaci_n"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle"
+        android:layout_marginBottom="16dp"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

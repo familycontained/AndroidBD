@@ -7,9 +7,9 @@
  -------------------------------------------------------------------
     <string name="grupos">Grupos</string>
     <string name="aniadir_tarea">Añadir tarea</string>
-    <string name="modificar_tarea">Modificar tarea</string>
-    <string name="eliminar_tarea">Eliminar tarea</string>
-    <string name="listar_tareas">Listar tareas</string>
+    <string name="modificar_tarea">Modificar Tarea</string>
+    <string name="eliminar_tarea">Eliminar Tarea</string>
+    <string name="listar_tareas">Listar Tareas</string>
     <string name="aniadir_usuarios">Añadir Usuario</string>
     <string name="modificar_usuario">Modificar Usuario</string>
     <string name="eliminar_usuario">Eliminar Usuario</string>
@@ -60,10 +60,12 @@
 
     -------------------------------------------------------
    <string-array name="estado_tarea_opciones">
+       <item></item>
       <item>Pendiente</item>
       <item>En Progreso</item>
       <item>Completada</item>
    </string-array>
 
+    ----------------------------------------------------------------------------
 
 </resources>

@@ -6,5 +6,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="celeste">#007FFF</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorSpinnerPopupBackground">#8df595</color>
+
 </resources>
 
