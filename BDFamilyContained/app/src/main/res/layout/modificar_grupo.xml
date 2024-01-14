@@ -39,7 +39,11 @@
         android:layout_height="wrap_content"
         android:hint="@string/nueva_descripcion_grupo" />
 
-    <!-- Spinner para las tareas -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tareas"
+        android:textSize="17sp"/>
     <Spinner
         android:id="@+id/spinnerNuevasTareas"
         android:layout_width="match_parent"
