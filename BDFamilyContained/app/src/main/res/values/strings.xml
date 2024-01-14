@@ -60,7 +60,6 @@
 
     -------------------------------------------------------
    <string-array name="estado_tarea_opciones">
-       <item></item>
       <item>Pendiente</item>
       <item>En Progreso</item>
       <item>Completada</item>

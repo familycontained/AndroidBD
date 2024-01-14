@@ -368,18 +368,20 @@ public class Grupos extends Activity {
 
     private void eliminarGrupo() {
         setContentView(R.layout.eliminar_grupo);
-        EditText etIdGrupo = findViewById(R.id.idTarea);
+        Spinner spinnerGrupos = findViewById(R.id.spinnerEliminarGrupo);
         Button btnEliminar = findViewById(R.id.btnEliminar);
+
+        ArrayList<String> infoGrupos = obtenerInfoGrupos();
+        llenarSpinnerConDatos(spinnerGrupos, infoGrupos);
 
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idGrupoStr = etIdGrupo.getText().toString();
-                if (!idGrupoStr.isEmpty()) {
-                    int idGrupo = Integer.parseInt(idGrupoStr);
+                int idGrupo = obtenerIdDeSpinner(spinnerGrupos, obtenerIdsGrupo());
+                if (idGrupo != -1) {
                     eliminarGrupoDeBaseDeDatos(idGrupo);
                 } else {
-                    Toast.makeText(Grupos.this, "Por favor, ingrese un ID de grupo válido.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Grupos.this, "Por favor, seleccione un grupo válido.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

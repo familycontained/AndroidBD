@@ -11,12 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Usuarios extends Activity {
+
+    private ArrayList<Integer> usuariosIds;
+    private ArrayList<Integer> tareasIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,23 +136,22 @@ public class Usuarios extends Activity {
     private void modificarUsuarios() {
         setContentView(R.layout.modificar_usuario);
 
-        EditText etIdUsuario = findViewById(R.id.idUsuario);
+        Spinner spinnerUsuarios = findViewById(R.id.spinnerUsuario);
         EditText etNombre = findViewById(R.id.etNombre);
         EditText etCorreo = findViewById(R.id.etCorreo);
         Button btnModificar = findViewById(R.id.btnModificar);
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+
+        // Obtener información de usuarios y llenar el Spinner
+        ArrayList<String> usuariosInfo = obtenerInfoUsuarios();
+        llenarSpinnerConDatos(spinnerUsuarios, usuariosInfo);
 
         btnModificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idUsuario = etIdUsuario.getText().toString();
+                int idUsuario = obtenerIdDeSpinner(spinnerUsuarios);
                 String nuevoNombre = etNombre.getText().toString();
                 String nuevoCorreo = etCorreo.getText().toString();
-
-                // Verificar solo el ID del usuario
-                if (idUsuario.isEmpty()) {
-                    Toast.makeText(Usuarios.this, "Por favor, ingrese el ID del usuario.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
                 // Verificar si al menos uno de los campos está lleno
                 if (nuevoNombre.isEmpty() && nuevoCorreo.isEmpty()) {
@@ -160,7 +163,6 @@ public class Usuarios extends Activity {
             }
         });
 
-        Button btnVolverAtras = findViewById(R.id.volverAtras);
         btnVolverAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,53 +171,93 @@ public class Usuarios extends Activity {
                 finish();
             }
         });
-
     }
 
-    private void actualizarUsuarioEnLaBaseDeDatos(String idUsuario, String nombre, String correo) {
+    private int obtenerIdDeSpinner(Spinner spinner) {
+        String selectedItem = (String) spinner.getSelectedItem();
+        if (selectedItem != null && !selectedItem.isEmpty()) {
+            String[] parts = selectedItem.split(" - "); // Suponiendo que el formato es "ID - Nombre"
+            if (parts.length > 0) {
+                try {
+                    return Integer.parseInt(parts[0]); // Obtiene el ID
+                } catch (NumberFormatException e) {
+                    // Manejar excepción si el formato no es el esperado
+                }
+            }
+        }
+        return -1; // Retorna -1 si no hay selección válida
+    }
+
+    private void llenarSpinnerConDatos(Spinner spinner, ArrayList<String> datos) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, datos);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    private ArrayList<String> obtenerInfoUsuarios() {
+        ArrayList<String> info = new ArrayList<>();
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT idUsuarios, nombre FROM Usuarios", null);
+        int idColumnIndex = cursor.getColumnIndex("idUsuarios");
+        int nombreColumnIndex = cursor.getColumnIndex("nombre");
+
+        if (idColumnIndex != -1 && nombreColumnIndex != -1) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(idColumnIndex);
+                String nombre = cursor.getString(nombreColumnIndex);
+                info.add(id + " - " + nombre);
+            }
+        }
+        cursor.close();
+        db.close();
+
+        return info;
+    }
+
+    private void actualizarUsuarioEnLaBaseDeDatos(int idUsuario, String nuevoNombre, String nuevoCorreo) {
         DatabaseHelper dbHelper = new DatabaseHelper(Usuarios.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        if (!nombre.isEmpty()) {
-            values.put("nombre", nombre);
+        if (!nuevoNombre.isEmpty()) {
+            values.put("nombre", nuevoNombre);
         }
-        if (!correo.isEmpty()) {
-            values.put("correo_electronico", correo);
+        if (!nuevoCorreo.isEmpty()) {
+            values.put("correo_electronico", nuevoCorreo);
         }
 
-        int affectedRows = db.update("Usuarios", values, "idUsuarios = ?", new String[]{idUsuario});
+        int affectedRows = db.update("Usuarios", values, "idUsuarios = ?", new String[]{String.valueOf(idUsuario)});
         db.close();
 
         if (affectedRows > 0) {
             Toast.makeText(Usuarios.this, "Usuario actualizado.", Toast.LENGTH_SHORT).show();
-            EditText idUsuarioEditText = findViewById(R.id.idUsuario);
-            EditText nombreEditText = findViewById(R.id.etNombre);
-            EditText correoEditText = findViewById(R.id.etCorreo);
-            idUsuarioEditText.setText("");
-            nombreEditText.setText("");
-            correoEditText.setText("");
-
+            // Puedes realizar otras acciones aquí, como limpiar los campos o regresar a la actividad anterior.
         } else {
             Toast.makeText(Usuarios.this, "Error al actualizar el usuario o el usuario no existe.", Toast.LENGTH_SHORT).show();
         }
-
     }
+
 
     private void eliminarUsuario() {
         setContentView(R.layout.eliminar_usuario);
 
-        final EditText etIdUsuario = findViewById(R.id.idUsuario);
-        Button btnEliminar =findViewById(R.id.btnEliminar);
+        Spinner spinnerUsuarios = findViewById(R.id.spinnerEliminarUsuario);
+        Button btnEliminar = findViewById(R.id.btnEliminar);
+
+        // Obtener información de usuarios y llenar el Spinner
+        ArrayList<String> infoUsuarios = obtenerInfoUsuarios();
+        llenarSpinnerConDatos(spinnerUsuarios, infoUsuarios);
 
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String idUsuario = etIdUsuario.getText().toString();
-                if (!idUsuario.isEmpty()) {
-                    eliminarUsuarioDeLaBaseDeDatos(idUsuario);
+                int idUsuario = obtenerIdDeSpinner(spinnerUsuarios);
+                if (idUsuario != -1) {
+                    eliminarUsuarioDeLaBaseDeDatos(String.valueOf(idUsuario));
                 } else {
-                    Toast.makeText(Usuarios.this, "Por favor, ingrese un ID de usuario.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Usuarios.this, "Por favor, seleccione un usuario.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

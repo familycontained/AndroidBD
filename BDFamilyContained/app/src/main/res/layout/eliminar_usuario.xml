@@ -14,16 +14,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/idUsuario"
+    <Spinner
+        android:id="@+id/spinnerEliminarUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ID Usuario"
-        android:layout_marginBottom="16dp"
-        android:textColorHint="@android:color/darker_gray"
-        android:textSize="18sp"
-        android:padding="12dp"
-        android:background="@drawable/edittext_background" />
+        style="@style/SpinnerStyle"
+        android:background="@drawable/spinner_background"
+        android:popupBackground="@color/colorSpinnerPopupBackground"
+        android:layout_marginBottom="16dp"/>
 
 
     <Button
