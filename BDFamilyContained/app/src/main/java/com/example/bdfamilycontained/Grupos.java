@@ -237,7 +237,7 @@ public class Grupos extends Activity {
                 }
             }
         });
-        
+
 
         Button btnVolverAtras = findViewById(R.id.volverAtras);
         btnVolverAtras.setOnClickListener(new View.OnClickListener() {
