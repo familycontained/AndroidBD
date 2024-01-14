@@ -2,6 +2,7 @@ package com.example.bdfamilycontained;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -51,6 +52,21 @@ public class Usuarios extends Activity {
             @Override
             public void onClick(View view) {
                 listarUsuarios();
+            }
+        });
+
+        Button btnVolverAtras = findViewById(R.id.volverAtras);
+        btnVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para iniciar la actividad MainActivity (o la actividad a la que desees volver)
+                Intent intent = new Intent(Usuarios.this, MainActivity.class);
+
+                // Iniciar la actividad MainActivity
+                startActivity(intent);
+
+                // Cerrar la actividad actual
+                finish();
             }
         });
     }

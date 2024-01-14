@@ -19,28 +19,74 @@
         android:id="@+id/aniadir_grupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/aniadir_grupo" />
+        android:text="@string/aniadir_grupo"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Botón 2 -->
     <Button
         android:id="@+id/modificar_grupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/modificar_grupo"/>
+        android:text="@string/modificar_grupo"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Botón 3 -->
     <Button
         android:id="@+id/eliminar_grupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/eliminar_grupo"/>
+        android:text="@string/eliminar_grupo"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle"
+        android:layout_marginBottom="16dp" />
 
     <!-- Botón 4 -->
     <Button
         android:id="@+id/listar_grupos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/listar_grupos"/>
+        android:text="@string/listar_grupos"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle"
+        android:layout_marginBottom="16dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="bottom">
+        <Button
+            android:id="@+id/volverAtras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/volver_ataras"
+            android:textColor="@android:color/white"
+            android:background="#3fbb09"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            style="@style/ButtonStyle" />
+
+    </LinearLayout>
 </LinearLayout>
 

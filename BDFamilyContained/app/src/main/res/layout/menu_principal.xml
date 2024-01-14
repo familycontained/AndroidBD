@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Título del Menú -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,24 +18,64 @@
     <Button
         android:id="@+id/usuarios"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Botón 2 -->
     <Button
         android:id="@+id/tareas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Botón 3 -->
     <Button
         android:id="@+id/usuarioTareas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Botón 4 -->
     <Button
         android:id="@+id/grupos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        style="@style/ButtonStyle"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo1"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true" />
+    </LinearLayout>
 
 </LinearLayout>
